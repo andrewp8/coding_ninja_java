@@ -16,6 +16,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="users")
@@ -24,7 +25,11 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+    
+    @Size(min=3)
     private String username;
+    
+    @Size(min=5)
     private String password;
     @Transient
     private String passwordConfirmation;
