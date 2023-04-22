@@ -13,7 +13,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="/css/style.css" />
-<script type="text/javascript" src="/js/app.js"></script>
 
 </head>
 <body>
@@ -23,7 +22,7 @@
 		<div class="d-flex justify-content-evenly m-2">
 			<div class="border border-primary rounded p-4">
 				<h3>Registration</h3>
-				<form:form action="/register" method="POST" modelAttribute="newUser">
+				<form:form action="/register" method="POST" modelAttribute="user">
 					<div class="form-group">
 						<form:label path="userName" class="form-label">User Name:</form:label>
 						<form:input path="userName" type="text" class="form-control" />
@@ -53,7 +52,7 @@
 
 			<div class="border border-success rounded p-4">
 				<h3>Login</h3>
-				<form:form action="/login" method="POST" modelAttribute="newLogin">
+				<form:form action="/login" method="POST" modelAttribute="user">
 					<div class="form-group">
 						<form:label path="email" class="form-label">Email:</form:label>
 						<form:input path="email" type="email" class="form-control" />
@@ -64,8 +63,8 @@
 						<form:input path="password" type="password" class="form-control" />
 						<form:errors path="password" class="text-danger" />
 					</div>
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
+<%-- 					<input type="hidden" name="${_csrf.parameterName}" --%>
+<%-- 						value="${_csrf.token}" /> --%>
 					<div class="d-flex justify-content-between">
 						<div></div>
 						<button type="submit" class="btn btn-success mt-4">Submit</button>

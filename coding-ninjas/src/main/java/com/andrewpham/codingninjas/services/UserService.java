@@ -41,6 +41,10 @@ public class UserService {
 	public User findByUserName(String username) {
 		return userRepository.findByUserName(username);
 	}
+	
+	public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
 	
 	// ---- UPGRADE USER ----
@@ -55,7 +59,7 @@ public class UserService {
 	}
 
 	// ---- FIND ONE ----
-	public User oneUser(Long id) {
+	public User findById(Long id) {
 		Optional<User> optionalUser = userRepository.findById(id);
 		if (optionalUser.isPresent()) {
 			return optionalUser.get();
@@ -74,7 +78,7 @@ public class UserService {
 	}
 
 	// ---- DELETE ----
-	public void removeUser(Long id) {
+	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
 }
