@@ -3,8 +3,6 @@ package com.andrewpham.codingninjas.models;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,63 +12,91 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-//	@NotEmpty(message = "Username is required!")
-	@Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters")
-	private String userName;
-
-//	@NotEmpty(message = "Email is required!")
-	@Email(message = "Please enter a valid email!")
-	private String email;
-
-//	@NotEmpty(message = "Password is required!")
-	@Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters")
-	private String password;
-
-	@Transient
-//	@NotEmpty(message = "Confirm Password is required!")
-	@Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters")
-	private String confirm;
-
-	@Column(updatable = false)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date createdAt;
-
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date updatedAt;
 	
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    @Size(min=3, max=30)
+    private String firstName;
+	@Size(min=3, max=30)
+    private String lastName;
+	@NotEmpty
+    private String email;
+    @Size(min=5)
+    private String password;
+    @Transient
+    private String confirm;
+    private Date lastLogin;
+    @Column(updatable=false)
+    private Date createdAt;
+    private Date updatedAt;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "users_roles", 
         joinColumns = @JoinColumn(name = "user_id"), 
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
-	
-	public User() {}
-	
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt = new Date();
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "teachers_courses",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "course_id")
+	)
+    private List<Course> courses;
+    
+    @Column(updatable=false)
+    @OneToMany(mappedBy="teacher", fetch = FetchType.LAZY)
+    private List<Course> coursesTeaching;
+    
+    
+    public User() {
+    }
+    
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
+
+    
+	public List<Course> getCourses() {
+		return courses;
 	}
 
-	@PreUpdate
-	protected void onUpdate() {
-		this.updatedAt = new Date();
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+	public List<Course> getCoursesTeaching() {
+		return coursesTeaching;
+	}
+
+	public void setCoursesTeaching(List<Course> coursesTeaching) {
+		this.coursesTeaching = coursesTeaching;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	public Long getId() {
@@ -81,12 +107,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -113,6 +147,14 @@ public class User {
 		this.confirm = confirm;
 	}
 
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -128,13 +170,6 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
+    
 
 }

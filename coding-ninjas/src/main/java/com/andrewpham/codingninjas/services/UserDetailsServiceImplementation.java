@@ -15,13 +15,14 @@ import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.repositories.UserRepository;
 
 @Service
-public class UserDetailsServiceImplementation implements UserDetailsService {
-    private UserRepository userRepository;
+public class UserDetailsServiceImplementation implements UserDetailsService{
+
+	private UserRepository userRepository;
     
     public UserDetailsServiceImplementation(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-    // 1
+    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
@@ -33,7 +34,6 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthorities(user));
     }
     
-    // 2
     private List<GrantedAuthority> getAuthorities(User user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for(Role role : user.getRoles()) {

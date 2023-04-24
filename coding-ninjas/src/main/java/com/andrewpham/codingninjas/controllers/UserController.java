@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.andrewpham.codingninjas.models.User;
+import com.andrewpham.codingninjas.services.CourseService;
 import com.andrewpham.codingninjas.services.UserService;
 import com.andrewpham.codingninjas.validators.UserValidator;
 
@@ -24,18 +25,22 @@ import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
+
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private UserValidator userValidator;
-    
-    @RequestMapping("/register")
+	
+	@Autowired 
+	private CourseService courseService;
+	
+	@RequestMapping("/register")
     public String registerForm(@Valid @ModelAttribute("user") User user) {
-        return "reglog.jsp";
+        return "loginPage.jsp";
     }
-    
-    @PostMapping("/register")
+	
+	@PostMapping("/register")
     public String registration(
     		@Valid @ModelAttribute("user") User user, 
     		BindingResult result, 
@@ -44,103 +49,106 @@ public class UserController {
 			HttpServletRequest request) {
     	
     	userValidator.validate(user, result);
-    	
     	// Store the password before it is encrypted
 		String password = user.getPassword();
 		if(result.hasErrors()) {
-			return "reglog.jsp";
+			return "loginPage.jsp";
 		}
-//		 Make first user ADMIN
+		// Make first user ADMIN
 		if(userService.allUsers().size()==0) {
 			userService.saveUserWithAdminRole(user);
 		}else {
 			userService.saveWithUserRole(user);
 		}
-//		userService.saveUserWithAdminRole(user);
 		
 		// Log in new user with the password we stored before encrypting it
 		authWithHttpServletRequest(request, user.getEmail(), password);
 		
  		return "redirect:/";
     }
-    
-    // We will call this method to log in newly registered users
- 	public void authWithHttpServletRequest(HttpServletRequest request, String email, String password) {
- 	    try {
- 	        request.login(email, password);
- 	    } catch (ServletException e) {
- 	    	System.out.println("Login error: " + e);
- 	    }
- 	}
-    
- 	@RequestMapping("/admin")
-	public String adminPage(Principal principal, Model model) {
-		String email = principal.getName();
-		model.addAttribute("currentUser", userService.findByEmail(email));
-		model.addAttribute("users", userService.allUsers());
-		return "adminPage.jsp";
-	}
-    
- 	@RequestMapping("/admin/{id}")
-	public String makeAdmin(@PathVariable("id") Long id, Model model) {
-		
-		User user = userService.findById(id);
-		userService.upgradeUser(user);
-		
-		model.addAttribute("users", userService.allUsers());
-		 
-		return "redirect:/admin";
-	}
 	
-	@RequestMapping("/login")
-	public String login(
-			@ModelAttribute("user") User user,
-			@RequestParam(value="error", required=false) String error, 
-			@RequestParam(value="logout", required=false) String logout, 
-			Model model) {
-		
-		if(error!=null) {
-			model.addAttribute("errorMessage","Invalid Credentials, Please try again.");
+	// We will call this method to log in newly registered users
+	 	public void authWithHttpServletRequest(HttpServletRequest request, String email, String password) {
+	 	    try {
+	 	        request.login(email, password);
+	 	    } catch (ServletException e) {
+	 	    	System.out.println("Login error: " + e);
+	 	    }
+	 	}
+	 	@RequestMapping("/admin")
+		public String adminPage(Principal principal, Model model) {
+			String email = principal.getName();
+			model.addAttribute("currentUser", userService.findByEmail(email));
+			model.addAttribute("users", userService.allUsers());
+			return "adminPage.jsp";
 		}
-		if(logout!=null) {
-			model.addAttribute("logoutMessage","Logout Successful!");
+	    
+	 	@RequestMapping("/admin/{id}")
+		public String makeAdmin(@PathVariable("id") Long id, Model model) {
+			
+			User user = userService.findById(id);
+			userService.upgradeUser(user);
+			
+			model.addAttribute("users", userService.allUsers());
+			 
+			return "redirect:/admin";
 		}
-		
-		return "reglog.jsp";
-	}
-	
-	@RequestMapping(value={"/", "/dashboard"})
-	public String home(Principal principal, Model model) {
-		if(principal==null) {
-			return "redirect:/login";
-		}
-		String email = principal.getName();
-		User user = userService.findByEmail(email);
-		model.addAttribute("user", user);
-		
-		if(user!=null) {
-			// Update last login
-//			user.setLastLogin(new Date());
-			userService.updateUser(user);
-			// If the user is an ADMIN they will be redirected to the admin page
-			if(user.getRoles().get(0).getName().contains("ROLE_ADMIN")) {
-				model.addAttribute("currentUser", userService.findByEmail(email));
-				model.addAttribute("users", userService.allUsers());
-				return "adminPage.jsp";
+	 	
+	 	@RequestMapping("/login")
+		public String login(
+				@ModelAttribute("user") User user,
+				@RequestParam(value="error", required=false) String error, 
+				@RequestParam(value="logout", required=false) String logout, 
+				Model model) {
+			System.out.println("login errors" + error);
+			if(error!=null) {
+				model.addAttribute("errorMessage","Invalid Credentials, Please try again.");
 			}
-			// All other users are redirected to the home page
+			if(logout!=null) {
+				model.addAttribute("logoutMessage","Logout Successful!");
+			}
+			
+			return "loginPage.jsp";
 		}
-		
-		return "dashboard.jsp";
-	}
+	 	
+	 	@RequestMapping(value={"/", "/home"})
+		public String home(Principal principal, Model model) {
+			if(principal==null) {
+				return "redirect:/login";
+			}
+			String email = principal.getName();
+			User user = userService.findByEmail(email);
+			model.addAttribute("currentUser", user);
+			model.addAttribute("unassignedCourses", courseService.getUnassignedCourses(user));
+			model.addAttribute("assignedCourses", courseService.getAssignedCourses(user));
+			
+			if(user!=null) {
+				// Update last login
+				user.setLastLogin(new Date());
+				userService.updateUser(user);
+				// If the user is an ADMIN they will be redirected to the admin page
+				if(user.getRoles().get(0).getName().contains("ROLE_ADMIN")) {
+					model.addAttribute("currentUser", userService.findByEmail(email));
+					model.addAttribute("users", userService.allUsers());
+					model.addAttribute("allCourses", courseService.allCourses());
+					model.addAttribute("unassignedCourses", courseService.getUnassignedCourses(user));
+					model.addAttribute("assignedCourses", courseService.getAssignedCourses(user));
+
+					return "adminPage.jsp";
+				}
+				// All other users are redirected to the home page
+			}
+			
+			return "home.jsp";
+		}
+	 	
+	 	@RequestMapping("/delete/{id}")
+		public String deleteUser(@PathVariable("id") Long id, HttpSession session, Model model) {	
+			User user = userService.findById(id);
+			userService.deleteUser(user);
+			
+			model.addAttribute("users", userService.allUsers());
+			 
+			return "redirect:/admin";
+		}
 }
-//	@RequestMapping("/delete/{id}")
-//	public String deleteUser(@PathVariable("id") Long id, HttpSession session, Model model) {	
-//		User user = userService.findById(id);
-//		userService.deleteUser(user);
-//		
-//		model.addAttribute("users", userService.allUsers());
-//		 
-//		return "redirect:/admin";
-//	}
-//}
