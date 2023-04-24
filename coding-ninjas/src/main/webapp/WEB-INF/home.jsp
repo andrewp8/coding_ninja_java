@@ -17,6 +17,17 @@
 
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Coding Ninjas</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</nav>
 	<div class="container m-4">
 		<div class="d-flex justify-content-between">
 			<h1>Welcome, ${user.firstName}</h1>
@@ -47,7 +58,7 @@
 									<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
 									<td><a
-										href="/dashboard/join/${eachCourse.id}">Enroll
+										href="/dashboard/${eachCourse.title}/${eachCourse.id}">Enroll
 											in Class</a></td>
 								</c:if>
 							</tr>
@@ -62,36 +73,45 @@
 						<tr>
 							<th>Course</th>
 							<th>Teacher</th>
+							<th>Due Date</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
-				    	<c:forEach var="eachCourse" items="${assignedCourses}">
-						<tr>
-							<td><a href="/courses/${eachCourse.id}">${eachCourse.title}</a></td>
-							<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
-						    <c:if test = "${eachCourse.teacher.id!=currentUser.id}">
-						       <td><a href="/dashboard/leave/${eachCourse.id}">Leave Class</a></td>
-						    </c:if>
-						</tr>	
-					</c:forEach>
+						<c:forEach var="eachCourse" items="${assignedCourses}">
+							<tr>
+								<td><a href="/courses/${eachCourse.id}">${eachCourse.title}</a></td>
+								<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
+
+								<c:if test="${eachCourse.teacher.id==currentUser.id}">
+									<td><a href="/projects/edit/${eachCourse.id}">Edit
+											Course</a></td>
+								</c:if>
+								<c:if test="${eachCourse.teacher.id!=currentUser.id}">
+									<td><a href="/dashboard/leave/${eachCourse.id}">Leave
+											Class</a></td>
+								</c:if>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
-			<div class="card px-auto" style="width:15rem;">
-				<p>First Name: ${currentUser.firstName}</p>
-				<p>Last Name: ${currentUser.lastName}</p>
-				<p>Email: ${currentUser.email}</p>
-				<p>
-					Signup Date
-					<fmt:formatDate pattern="MMMM dd, y"
-						value="${currentUser.createdAt}" />
-				</p>
-				<p>
-					Last Sign in:
-					<fmt:formatDate pattern="MMMM dd, y"
-						value="${currentUser.lastLogin}" />
-				</p>
+			<div class="card" style="width: 15rem;">
+				<div class="card-body">
+					<h5 style="text-transform: capitalize;">Hello,
+						${currentUser.firstName} ${currentUser.lastName}</h5>
+					<p>Email: ${currentUser.email}</p>
+					<p>
+						Signup Date:
+						<fmt:formatDate pattern="MMMM dd, y"
+							value="${currentUser.createdAt}" />
+					</p>
+					<p>
+						Last Sign in:
+						<fmt:formatDate pattern="MMMM dd, y"
+							value="${currentUser.lastLogin}" />
+					</p>
+				</div>
 			</div>
 		</div>
 
