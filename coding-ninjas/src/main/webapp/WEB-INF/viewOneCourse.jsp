@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,5 +22,27 @@
 =======
 <p>taco for life</p>
 >>>>>>> 7c4705cb556be1603e75693592eba033a96afbb8
+	<a><button></button></a>
+	<h1> course title: ${oneCourse.title }</h1>
+	<h2>teacher first name${oneCourse.teacher.firstName }</h2>
+	<h2>teacher id: ${oneCourse.teacher.id }</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var= "eachUser" items="${allUsers }">
+				<tr>
+					<td>${eachUser.firstName }</td>
+					<td>${eachUser.lastName }</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	
+	</table>
+	
 </body>
 </html>

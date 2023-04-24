@@ -56,7 +56,7 @@
 	    	<tr>
 	    		<th>Course</th>
 	    		<th>Teacher</th>
-	    		<th>Actions</th>
+	    		<th>Description</th>
 	    	</tr>
 	    </thead>
 	    <tbody>
@@ -66,7 +66,7 @@
 				<td><a href="/courses/${eachCourse.id}">${eachCourse.title}</a></td>
 				<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 				
-			    <td><a href="/dashboard/join/${eachCourse.id}">Join Team</a></td>
+			    <td><c:out value="${eachCourse.description }"></c:out></td>
 			    </c:if>
 			</tr>	
 			</c:forEach>
@@ -92,7 +92,7 @@
 				
 				<c:if test = "${eachCourse.teacher.id==currentUser.id}">
 			       <td><a href="/courses/edit/${eachCourse.id}">Edit Course Information</a></td>
-			       <td><form action ="/courses/${eachCourse.id }" method = "post">
+			       <td><form action ="/admin/courses/${eachCourse.id }" method = "post">
 			       		<input type="hidden" name="_method" value="delete">
 						<input type="submit" value="Delete" style="margin-right: 5px">
 			       </form></td>
