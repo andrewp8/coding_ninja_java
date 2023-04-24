@@ -16,6 +16,10 @@
 <p>i love to drink boba</p>
 =======
 <h3>3rd added</h3>
+<<<<<<< HEAD
 >>>>>>> df852bba6a07aa25715a47d90c5fbdf3340ff2dc
+=======
+<p>taco for life</p>
+>>>>>>> 7c4705cb556be1603e75693592eba033a96afbb8
 </body>
 </html>

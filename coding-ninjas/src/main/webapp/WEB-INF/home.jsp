@@ -47,7 +47,7 @@
 									<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
 									<td><a
-										href="/dashboard/${eachCourse.title}/${eachCourse.id}">Enroll
+										href="/dashboard/join/${eachCourse.id}">Enroll
 											in Class</a></td>
 								</c:if>
 							</tr>
@@ -62,7 +62,6 @@
 						<tr>
 							<th>Course</th>
 							<th>Teacher</th>
-							<th>Due Date</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -71,10 +70,6 @@
 						<tr>
 							<td><a href="/courses/${eachCourse.id}">${eachCourse.title}</a></td>
 							<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
-							
-							<c:if test = "${eachCourse.teacher.id==currentUser.id}">
-						       <td><a href="/projects/edit/${eachCourse.id}">Edit Course</a></td>
-						    </c:if>
 						    <c:if test = "${eachCourse.teacher.id!=currentUser.id}">
 						       <td><a href="/dashboard/leave/${eachCourse.id}">Leave Class</a></td>
 						    </c:if>
@@ -83,20 +78,21 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="card-body">
-					<h5 style="text-transform:capitalize;">Hello, ${currentUser.firstName} ${currentUser.lastName}</h5>
-					<p>Email: ${currentUser.email}</p>
-					<p>
-						Signup Date:
-						<fmt:formatDate pattern="MMMM dd, y"
-							value="${currentUser.createdAt}" />
-					</p>
-					<p>
-						Last Sign in:
-						<fmt:formatDate pattern="MMMM dd, y"
-							value="${currentUser.lastLogin}" />
-					</p>
-				</div>
+			<div class="card px-auto" style="width:15rem;">
+				<p>First Name: ${currentUser.firstName}</p>
+				<p>Last Name: ${currentUser.lastName}</p>
+				<p>Email: ${currentUser.email}</p>
+				<p>
+					Signup Date
+					<fmt:formatDate pattern="MMMM dd, y"
+						value="${currentUser.createdAt}" />
+				</p>
+				<p>
+					Last Sign in:
+					<fmt:formatDate pattern="MMMM dd, y"
+						value="${currentUser.lastLogin}" />
+				</p>
+			</div>
 		</div>
 
 	</div>
