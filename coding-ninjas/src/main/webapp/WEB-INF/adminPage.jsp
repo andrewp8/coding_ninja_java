@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<title>Admin Dashboard</title>
 </head>
 <body>
+
 	<h1>Welcome, ${currentUser.firstName}</h1>
 	<form id="logoutForm" method="POST" action="/logout">
 	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -81,24 +80,30 @@
 	    	<tr>
 	    		<th>Course</th>
 	    		<th>Teacher</th>
-	    		<th colspan =2>Actions</th>
+	    		<th>Due Date</th>
+	    		<th>Actions</th>
 	    	</tr>
 	    </thead>
 	    <tbody>
 	    	<c:forEach var="eachCourse" items="${assignedCourses}">
 			<tr>
-				<td><a href="/projects/${eachCourse.id}">${eachCourse.title}</a></td>
+				<td><a href="/courses/${eachCourse.id}">${eachCourse.title}</a></td>
 				<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 				
 				<c:if test = "${eachCourse.teacher.id==currentUser.id}">
-			       <td><a href="/projects/edit/${eachCourse.id}">Edit Course</a></td>
+			       <td><a href="/courses/edit/${eachCourse.id}">Edit Course Information</a></td>
+			       <td><form action ="/courses/${eachCourse.id }" method = "post">
+			       		<input type="hidden" name="_method" value="delete">
+						<input type="submit" value="Delete" style="margin-right: 5px">
+			       </form></td>
 			    </c:if>
 			    <c:if test = "${eachCourse.teacher.id!=currentUser.id}">
-			       <td><a href="/dashboard/leave/${eachCourse.id}">Leave Team</a></td>
+			       <td><a href="/dashboard/leave/${eachCourse.id}">Leave Course</a></td>
 			    </c:if>
 			</tr>	
 		</c:forEach>
 	    </tbody>
 	</table>
+
 </body>
 </html>
