@@ -7,6 +7,6 @@
 <title>View One Course</title>
 </head>
 <body>
-
+	<h1>Marco</h1>
 </body>
 </html>
