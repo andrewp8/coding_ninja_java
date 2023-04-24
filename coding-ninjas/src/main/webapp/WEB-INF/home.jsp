@@ -83,21 +83,20 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="card px-auto" style="width:15rem;">
-				<p>First Name: ${currentUser.firstName}</p>
-				<p>Last Name: ${currentUser.lastName}</p>
-				<p>Email: ${currentUser.email}</p>
-				<p>
-					Signup Date:
-					<fmt:formatDate pattern="MMMM dd, y"
-						value="${currentUser.createdAt}" />
-				</p>
-				<p>
-					Last Sign in:
-					<fmt:formatDate pattern="MMMM dd, y"
-						value="${currentUser.lastLogin}" />
-				</p>
-			</div>
+			<div class="card-body">
+					<h5 style="text-transform:capitalize;">Hello, ${currentUser.firstName} ${currentUser.lastName}</h5>
+					<p>Email: ${currentUser.email}</p>
+					<p>
+						Signup Date:
+						<fmt:formatDate pattern="MMMM dd, y"
+							value="${currentUser.createdAt}" />
+					</p>
+					<p>
+						Last Sign in:
+						<fmt:formatDate pattern="MMMM dd, y"
+							value="${currentUser.lastLogin}" />
+					</p>
+				</div>
 		</div>
 
 	</div>
