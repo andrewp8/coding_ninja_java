@@ -111,6 +111,7 @@ public class CourseController {
 		}
 		Course course = courseService.findById(id);
 		model.addAttribute("oneCourse", course);
+		model.addAttribute("allUsers", userService.findByCourseId(id));
 		return "viewOneCourse.jsp";
 	}
 	
@@ -154,7 +155,7 @@ public class CourseController {
 		}
 		
 	}
-	@DeleteMapping("/courses/{id}")
+	@DeleteMapping("/admin/courses/{id}")
 	public String deleteCourse(
 			@PathVariable("id") Long id,
 			Principal principal
