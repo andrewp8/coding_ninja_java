@@ -12,7 +12,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/home.css" />
 <script type="text/javascript" src="/js/app.js"></script>
 
 </head>
@@ -20,17 +20,23 @@
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">Coding Ninjas</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" aria-current="page"
+						href="/lessons">Lessons</a></li>
+					<li class="nav-item"><a class="nav-link" href="/status">Status</a></li>
+				</ul>
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search"
+						aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
 		</div>
 	</nav>
 	<div class="container m-4">
 		<div class="d-flex justify-content-between">
-			<h1>Welcome, ${user.firstName}</h1>
+			<h1>Welcome Back, <span style="text-transform:capitalize;">${currentUser.firstName}</span></h1>
 			<form id="logoutForm" method="POST" action="/logout">
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" /> <input type="submit" value="Logout!"
@@ -38,10 +44,9 @@
 			</form>
 		</div>
 
+		<h4>All Courses</h4>
 		<div class="d-flex justify-content-between">
 			<div>
-				<h4>All Courses</h4>
-
 				<table>
 					<thead>
 						<tr>
@@ -57,8 +62,7 @@
 									<td><a href="/courses/${eachCourse.id}">${eachCourse.title}</a></td>
 									<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
-									<td><a
-										href="/dashboard/${eachCourse.title}/${eachCourse.id}">Enroll
+									<td><a href="/dashboard/join/${eachCourse.id}">Enroll
 											in Class</a></td>
 								</c:if>
 							</tr>
@@ -67,8 +71,10 @@
 				</table>
 
 				<hr>
-				<h4>Your Courses</h4>
-				<table>
+
+				<div class="dropdown">
+					<h4>Your Courses</h4>
+				<table class="table dropdown-content">
 					<thead>
 						<tr>
 							<th>Course</th>
@@ -95,7 +101,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				</div>
 			</div>
+
 			<div class="card" style="width: 15rem;">
 				<div class="card-body">
 					<h5 style="text-transform: capitalize;">Hello,

@@ -100,7 +100,6 @@ public class UserController {
 				@RequestParam(value="error", required=false) String error, 
 				@RequestParam(value="logout", required=false) String logout, 
 				Model model) {
-			System.out.println("login errors" + error);
 			if(error!=null) {
 				model.addAttribute("errorMessage","Invalid Credentials, Please try again.");
 			}
