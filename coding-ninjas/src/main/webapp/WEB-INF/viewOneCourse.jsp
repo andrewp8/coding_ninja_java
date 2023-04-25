@@ -11,6 +11,7 @@
 <title>View One Course</title>
 </head>
 <body>
+<<<<<<< HEAD
 	
 	<a href="/"><button>Return to home</button></a>
 	<h1> course title: ${currentCourse.title }</h1>
@@ -37,6 +38,26 @@
 							<td>Student</td>
 						</c:otherwise>
 					</c:choose>
+=======
+	<h1> course title: ${oneCourse.title }</h1>
+	<h2>teacher first name${oneCourse.teacher.firstName }</h2>
+	<h2>teacher id: ${oneCourse.teacher.id }</h2>
+	<a href="/courses/${oneCourse.id}/lectures/new">Add new lecture</a>
+	<table>
+		<thead>
+			<tr>
+				<th>Lecture's title</th>
+				<th>Difficulty</th>
+				<th>Finish reading by</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var= "eachLecture" items="${lectureList}">
+				<tr>
+					<td>${eachLecture.title }</td>
+					<td>${eachLecture.difficulty }</td>
+					<td>${eachLecture.dueDate }</td>
+>>>>>>> d01c59aa95acf5d508d78bb9ff78a7094f5ef2ce
 				</tr>
 			</c:forEach>
 		</tbody>
