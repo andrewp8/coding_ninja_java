@@ -51,9 +51,7 @@ public class UserService {
     	return userRepository.findAll();
     }
     
-    public List<User> findByCourseId(Long id){
-    	return userRepository.findAllById(id);
-    }
+    
     
     public void updateUser(User user) {
     	userRepository.save(user);

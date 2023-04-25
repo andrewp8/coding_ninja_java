@@ -1,6 +1,8 @@
 package com.andrewpham.codingninjas.controllers;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.andrewpham.codingninjas.models.Course;
+import com.andrewpham.codingninjas.models.Message;
 import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.services.CourseService;
+import com.andrewpham.codingninjas.services.MessageService;
 import com.andrewpham.codingninjas.services.UserService;
 
 import jakarta.validation.Valid;
@@ -28,6 +32,9 @@ public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private MessageService messageService;
 	
 	@GetMapping("/courses/new")
 	public String newCourse(@ModelAttribute("newCourse") Course newCourse, Principal principal, Model model) {
@@ -104,14 +111,23 @@ public class CourseController {
 	@GetMapping("/courses/{id}")
 	public String viewOneCourse(
 			@PathVariable("id") Long id, 
+			@Valid @ModelAttribute("message") Message message,
 			Principal principal, 
 			Model model) {
 		if(principal==null) {
 			return "redirect:/login";
 		}
+		
+		String email = principal.getName();
+		User user = userService.findByEmail(email);
 		Course course = courseService.findById(id);
-		model.addAttribute("oneCourse", course);
-		model.addAttribute("allUsers", userService.findByCourseId(id));
+		//gets all the messages saves in this course
+		List<Message> messages = course.getMessages();
+		Collections.reverse(messages);
+		model.addAttribute("currentUser", user);
+		model.addAttribute("currentCourse", course);
+		model.addAttribute("attendees", course.getUsers());
+		model.addAttribute("theseMessages", messages);
 		return "viewOneCourse.jsp";
 	}
 	
@@ -127,6 +143,7 @@ public class CourseController {
 		
 		Course course = courseService.findById(id);
 		model.addAttribute("oneCourse", course);
+		
 		return "viewEditCourse.jsp";
 		
 	}
@@ -166,6 +183,24 @@ public class CourseController {
 		Course oneCourse = courseService.findById(id);
 		courseService.deleteCourse(oneCourse);
 		return "redirect:/";
+	}
+	
+	@PostMapping("/courses/addMessage")
+	public String addMessage(
+			@ModelAttribute("message") Message message, 
+			Model model,
+			Principal principal
+			) {
+		if(principal==null) {
+			return "redirect:/login";
+		}
+		String email = principal.getName();
+		User user = userService.findByEmail(email);
+		model.addAttribute("user", user);
+		System.out.println(message.getContent());
+		messageService.addMessage(message);
+		return "redirect:/";
+		
 	}
 	
 

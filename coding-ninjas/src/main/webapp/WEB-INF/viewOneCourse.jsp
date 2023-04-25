@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,41 +11,57 @@
 <title>View One Course</title>
 </head>
 <body>
-	<h1>Marco</h1>
-	<h1>Andrew</h1>
-	<h3>Polo</h3>
-<h3>Andrew just added</h3>
-<<<<<<< HEAD
-
-<p>i love to drink boba</p>
-=======
-<h3>3rd added</h3>
-<<<<<<< HEAD
->>>>>>> df852bba6a07aa25715a47d90c5fbdf3340ff2dc
-=======
-<p>taco for life</p>
->>>>>>> 7c4705cb556be1603e75693592eba033a96afbb8
-	<a><button></button></a>
-	<h1> course title: ${oneCourse.title }</h1>
-	<h2>teacher first name${oneCourse.teacher.firstName }</h2>
-	<h2>teacher id: ${oneCourse.teacher.id }</h2>
+	
+	<a href="/"><button>Return to home</button></a>
+	<h1> course title: ${currentCourse.title }</h1>
+	<br>
+	
 	<table>
 		<thead>
 			<tr>
 				<th>First name</th>
 				<th>Last name</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var= "eachUser" items="${allUsers }">
+			<c:forEach var= "oneUser" items="${attendees }">
 				<tr>
-					<td>${eachUser.firstName }</td>
-					<td>${eachUser.lastName }</td>
+					<td>${oneUser.firstName }</td>
+					<td>${oneUser.lastName }</td>
+					<c:choose>
+						<c:when test="${ oneUser.roles.get(0).name.contains('ROLE_ADMIN')}">
+							<td>Teacher</td>
+						</c:when>
+						<c:otherwise>
+							<td>Student</td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</c:forEach>
 		</tbody>
 	
 	</table>
+	
+		<div>
+			<h2>Class Message Wall</h2>
+			<div id="commentbox">
+                <c:forEach var="oneMmsg" items="${theseMessages}" >
+                    <p>${oneMmsg.user.firstName} says: ${oneMmsg.content}</p>
+                    <p>--*--*--*--*--*--*--</p>
+                </c:forEach>
+            </div>
+            	<h3>Message the class</h3>
+                <form:form method="post" action="/courses/addMessage" modelAttribute="message">
+                	<h5>
+                		<form:input cssClass="txtbox" type="textarea" path="content"/>
+					</h5>
+					<form:hidden path="user" value="${currentUser.id}"/>
+					<form:hidden path="course" value="${currentCourse.id}"/>
+			   		<input class="btn" type="submit" value="Submit">          
+                </form:form>
+               	<form:errors cssClass="red" path="message.*"/>
+		</div>
 	
 </body>
 </html>
