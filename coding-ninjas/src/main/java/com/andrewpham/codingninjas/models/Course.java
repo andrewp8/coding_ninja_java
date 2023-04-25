@@ -54,12 +54,10 @@ public class Course {
 	)
     private List<User> users;
     
-<<<<<<< HEAD
     @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
     private List<Message> messages;
     
-    public Course() {}
-=======
+
     @OneToMany(mappedBy="course", fetch=FetchType.LAZY)
     private List<Lecture> lectures;
     
@@ -72,7 +70,6 @@ public class Course {
 	}
 
 	public Course() {}
->>>>>>> d01c59aa95acf5d508d78bb9ff78a7094f5ef2ce
 
 	public List<Message> getMessages() {
 		return messages;

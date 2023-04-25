@@ -26,16 +26,16 @@ public class LectureController {
 	@Autowired
 	private CourseService courseService;
 
-	@GetMapping("/courses/{courseId}/lectures")
-	public String lectureDashboard(@PathVariable("courseId") Long courseId, Principal principal, Model model) {
-		if (principal == null) {
-			return "redirect:/login";
-		}
-		System.out.println("courseid>>>>>" + courseId);
-		model.addAttribute("oneCourse", courseService.findById(courseId));
-		model.addAttribute("lectureList", lectureService.allLectures());
-		return "viewOneCourse.jsp";
-	}
+//	@GetMapping("/courses/{courseId}/lectures")
+//	public String lectureDashboard(@PathVariable("courseId") Long courseId, Principal principal, Model model) {
+//		if (principal == null) {
+//			return "redirect:/login";
+//		}
+//		System.out.println("courseid>>>>>" + courseId);
+//		model.addAttribute("oneCourse", courseService.findById(courseId));
+//		model.addAttribute("lectureList", lectureService.allLectures());
+//		return "viewOneCourse.jsp";
+//	}
 	
 	@GetMapping("/courses/{courseId}/lectures/new")
 	public String newLecture(Model model, Principal principal) {
