@@ -61,7 +61,6 @@ public class User {
     @OneToMany(mappedBy="teacher", fetch = FetchType.LAZY)
     private List<Course> coursesTeaching;
     
-    
     public User() {
     }
     

@@ -101,19 +101,19 @@ public class CourseController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/courses/{id}")
-	public String viewOneCourse(
-			@PathVariable("id") Long id, 
-			Principal principal, 
-			Model model) {
-		if(principal==null) {
-			return "redirect:/login";
-		}
-		Course course = courseService.findById(id);
-		model.addAttribute("oneCourse", course);
-		model.addAttribute("allUsers", userService.findByCourseId(id));
-		return "viewOneCourse.jsp";
-	}
+//	@GetMapping("/courses/{id}")
+//	public String viewOneCourse(
+//			@PathVariable("id") Long id, 
+//			Principal principal, 
+//			Model model) {
+//		if(principal==null) {
+//			return "redirect:/login";
+//		}
+//		Course course = courseService.findById(id);
+//		model.addAttribute("oneCourse", course);
+//		model.addAttribute("allUsers", userService.findByCourseId(id));
+//		return "viewOneCourse.jsp";
+//	}
 	
 	@GetMapping("/courses/edit/{id}")
 	public String renderEditCoursePage(

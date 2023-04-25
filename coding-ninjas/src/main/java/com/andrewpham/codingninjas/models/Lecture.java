@@ -12,19 +12,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="courses")
-public class Course {
+@Table(name="lectures")
+public class Lecture {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,40 +30,40 @@ public class Course {
 	@NotEmpty(message="Title is required!")
     private String title;
 	
-	@NotEmpty(message="Description is required!")
-    @Size(min=3, message="Description must be at least 3 characters long")
-    private String description;
+	@NotEmpty(message="Content is required")
+	@Column(columnDefinition = "TEXT")
+	private String content;
+	
+	@NotNull(message="Date must be selected")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dueDate;
+	
+	@NotNull(message="Lecture difficulty must be selected")
+	private Integer difficulty;
 	
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="teacher_id")
-    private User teacher;
-    
-    @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "teachers_courses",
-			joinColumns = @JoinColumn(name = "course_id"),
-			inverseJoinColumns = @JoinColumn(name = "user_id")
-	)
-    private List<User> users;
-    
-    @OneToMany(mappedBy="course", fetch=FetchType.LAZY)
-    private List<Lecture> lectures;
-    
-    public List<Lecture> getLectures() {
-		return lectures;
-	}
-
-	public void setLectures(List<Lecture> lectures) {
-		this.lectures = lectures;
-	}
-
-	public Course() {}
+	
+	@OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+	private List<Image> images;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="course_id")
+	private Course course;
+	
+	public Lecture() {}
+	
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
 
 	public Long getId() {
 		return id;
@@ -83,12 +81,28 @@ public class Course {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getContent() {
+		return content;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Date getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public Integer getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Integer difficulty) {
+		this.difficulty = difficulty;
 	}
 
 	public Date getCreatedAt() {
@@ -107,29 +121,21 @@ public class Course {
 		this.updatedAt = updatedAt;
 	}
 
-	public User getTeacher() {
-		return teacher;
+	public List<Image> getImages() {
+		return images;
 	}
 
-	public void setTeacher(User teacher) {
-		this.teacher = teacher;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public Course getCourse() {
+		return course;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
     
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = new Date();
-    }
-    @PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
-
+    
 }

@@ -8,36 +8,24 @@
 <title>View One Course</title>
 </head>
 <body>
-	<h1>Marco</h1>
-	<h1>Andrew</h1>
-	<h3>Polo</h3>
-<h3>Andrew just added</h3>
-<<<<<<< HEAD
-
-<p>i love to drink boba</p>
-=======
-<h3>3rd added</h3>
-<<<<<<< HEAD
->>>>>>> df852bba6a07aa25715a47d90c5fbdf3340ff2dc
-=======
-<p>taco for life</p>
->>>>>>> 7c4705cb556be1603e75693592eba033a96afbb8
-	<a><button></button></a>
 	<h1> course title: ${oneCourse.title }</h1>
 	<h2>teacher first name${oneCourse.teacher.firstName }</h2>
 	<h2>teacher id: ${oneCourse.teacher.id }</h2>
+	<a href="/courses/${oneCourse.id}/lectures/new">Add new lecture</a>
 	<table>
 		<thead>
 			<tr>
-				<th>First name</th>
-				<th>Last name</th>
+				<th>Lecture's title</th>
+				<th>Difficulty</th>
+				<th>Finish reading by</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var= "eachUser" items="${allUsers }">
+			<c:forEach var= "eachLecture" items="${lectureList}">
 				<tr>
-					<td>${eachUser.firstName }</td>
-					<td>${eachUser.lastName }</td>
+					<td>${eachLecture.title }</td>
+					<td>${eachLecture.difficulty }</td>
+					<td>${eachLecture.dueDate }</td>
 				</tr>
 			</c:forEach>
 		</tbody>

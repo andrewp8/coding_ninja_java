@@ -1,0 +1,23 @@
+@charset "ISO-8859-1";
+
+* {
+	font-family: 'Lato', sans-serif;
+	font-family: 'Marvel', sans-serif;
+	font-family: 'Roboto Mono', monospace;
+}
+
+.message {
+	background-color: forestgreen;
+	box-shadow: 5px 5px 10px grey;
+	padding: 1.5%;
+	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 2px grey;
+}
+
+.register, .login {
+	background-color: whitesmoke;
+	width: 400px;
+	padding: 2%;
+	box-shadow: 3px 3px 10px lightgrey;
+}
