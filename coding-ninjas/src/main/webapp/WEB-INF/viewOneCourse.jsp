@@ -11,8 +11,13 @@
 <title>View One Course</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<<<<<<< HEAD
 
+=======
+
+	
+>>>>>>> 517a696afbcda465169289985429b20f5e3b6406
 	<a href="/"><button>Return to home</button></a>
 	<h1>course title: ${currentCourse.title }</h1>
 	<br>
@@ -41,9 +46,16 @@
 					</c:choose>
 				</tr>
 			</c:forEach>
+<<<<<<< HEAD
 		</tbody>
 	</table>
 	<h1>course title: ${oneCourse.title }</h1>
+=======
+			</tbody>
+		</table>
+	
+	<h1> course title: ${oneCourse.title }</h1>
+>>>>>>> 517a696afbcda465169289985429b20f5e3b6406
 	<h2>teacher first name${oneCourse.teacher.firstName }</h2>
 	<h2>teacher id: ${oneCourse.teacher.id }</h2>
 	<a href="/courses/${oneCourse.id}/lectures/new">Add new lecture</a>
@@ -61,6 +73,10 @@
 					<td>${eachLecture.title }</td>
 					<td>${eachLecture.difficulty }</td>
 					<td>${eachLecture.dueDate }</td>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 517a696afbcda465169289985429b20f5e3b6406
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -19,6 +19,7 @@ import com.andrewpham.codingninjas.models.Course;
 import com.andrewpham.codingninjas.models.Message;
 import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.services.CourseService;
+import com.andrewpham.codingninjas.services.LectureService;
 import com.andrewpham.codingninjas.services.MessageService;
 import com.andrewpham.codingninjas.services.UserService;
 
@@ -26,6 +27,8 @@ import jakarta.validation.Valid;
 
 @Controller
 public class CourseController {
+	@Autowired
+	private LectureService lectureService;
 	
 	@Autowired
 	private UserService userService;
@@ -108,9 +111,13 @@ public class CourseController {
 		return "redirect:/";
 	}
 	
+<<<<<<< HEAD
 	@GetMapping("/courses/{id}")
+=======
+	@GetMapping("/courses/{courseId}/lectures")
+>>>>>>> 517a696afbcda465169289985429b20f5e3b6406
 	public String viewOneCourse(
-			@PathVariable("id") Long id, 
+			@PathVariable("courseId") Long courseId, 
 			@Valid @ModelAttribute("message") Message message,
 			Principal principal, 
 			Model model) {
@@ -120,7 +127,7 @@ public class CourseController {
 		
 		String email = principal.getName();
 		User user = userService.findByEmail(email);
-		Course course = courseService.findById(id);
+		Course course = courseService.findById(courseId);
 		//gets all the messages saves in this course
 		List<Message> messages = course.getMessages();
 		Collections.reverse(messages);
@@ -128,9 +135,28 @@ public class CourseController {
 		model.addAttribute("currentCourse", course);
 		model.addAttribute("attendees", course.getUsers());
 		model.addAttribute("theseMessages", messages);
+		model.addAttribute("oneCourse", courseService.findById(courseId));
+		model.addAttribute("lectureList", lectureService.allLectures());
 		return "viewOneCourse.jsp";
 	}
 
+<<<<<<< HEAD
+=======
+//	@GetMapping("/courses/{id}")
+//	public String viewOneCourse(
+//			@PathVariable("id") Long id, 
+//			Principal principal, 
+//			Model model) {
+//		if(principal==null) {
+//			return "redirect:/login";
+//		}
+//		Course course = courseService.findById(id);
+//		model.addAttribute("oneCourse", course);
+//		model.addAttribute("allUsers", userService.findByCourseId(id));
+//		return "viewOneCourse.jsp";
+//	}
+
+>>>>>>> 517a696afbcda465169289985429b20f5e3b6406
 	
 	@GetMapping("/courses/edit/{id}")
 	public String renderEditCoursePage(
