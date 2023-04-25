@@ -108,7 +108,6 @@ public class CourseController {
 		return "redirect:/";
 	}
 	
-<<<<<<< HEAD
 	@GetMapping("/courses/{id}")
 	public String viewOneCourse(
 			@PathVariable("id") Long id, 
@@ -131,21 +130,7 @@ public class CourseController {
 		model.addAttribute("theseMessages", messages);
 		return "viewOneCourse.jsp";
 	}
-=======
-//	@GetMapping("/courses/{id}")
-//	public String viewOneCourse(
-//			@PathVariable("id") Long id, 
-//			Principal principal, 
-//			Model model) {
-//		if(principal==null) {
-//			return "redirect:/login";
-//		}
-//		Course course = courseService.findById(id);
-//		model.addAttribute("oneCourse", course);
-//		model.addAttribute("allUsers", userService.findByCourseId(id));
-//		return "viewOneCourse.jsp";
-//	}
->>>>>>> d01c59aa95acf5d508d78bb9ff78a7094f5ef2ce
+
 	
 	@GetMapping("/courses/edit/{id}")
 	public String renderEditCoursePage(
