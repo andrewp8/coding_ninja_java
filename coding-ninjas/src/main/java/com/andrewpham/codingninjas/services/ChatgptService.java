@@ -4,6 +4,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class ChatgptService {
 		String url = "https://api/openai.com/v1/completions";
 		HttpPost post = new HttpPost(url);
 		post.addHeader("Content-Type", "application/json");
-		post.addHeader("Authorization", "Bearer " + OPEN_AI_KEY);
+		post.addHeader("Authorization", "Bearer " +OPEN_AI_KEY);
 		
 		Gson gson = new Gson();
 		String body = gson.toJson(chatgptRequest);
@@ -40,10 +41,13 @@ public class ChatgptService {
 			final StringEntity entity = new StringEntity(body);
 			System.out.println(body);
 			post.setEntity(entity);
+			System.out.println("entity>>>>>"+entity);
 			CloseableHttpClient httpClient1 = HttpClients.custom().build();
-			System.out.println(httpClient1);
+			System.out.println("httpClient1>>>>" +httpClient1);
 			CloseableHttpResponse response1 = httpClient1.execute(post);
+			System.out.println("post>>>>>"+post);
 			System.out.println("!!!!!!!!!!!!!!!");
+			System.out.println("response1>>>>>"+response1);
 			
 			try(CloseableHttpClient httpClient = HttpClients.custom().build();
 					CloseableHttpResponse response = httpClient.execute(post)){
@@ -51,19 +55,19 @@ public class ChatgptService {
 				String responseBody = EntityUtils.toString(response.getEntity());
 				
 				ChatgptResponse chatgptResponse = gson.fromJson(responseBody, ChatgptResponse.class);
-				System.out.println(chatgptResponse);
+				System.out.println("chatgptResponse "+chatgptResponse);
 	//			return chatgptResponse.getChoices().get(0).getText();
 				
 				return chatgptResponse.getChoices().get(0).getText();
 				
 			} 
 			catch(Exception e) {
-				System.out.println(e);
+				System.out.println("inner exeption>>>>"+e);
 				return "failed";
 			}
 		}
 			catch(Exception e) {
-				System.out.println(e);
+				System.out.println("outter exeption>>>>"+e);
 				return "failed";
 			}
 	}
