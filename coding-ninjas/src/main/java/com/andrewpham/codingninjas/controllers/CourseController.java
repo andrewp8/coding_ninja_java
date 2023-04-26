@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import com.andrewpham.codingninjas.services.CourseService;
 import com.andrewpham.codingninjas.services.LectureService;
 import com.andrewpham.codingninjas.services.MessageService;
 import com.andrewpham.codingninjas.services.UserService;
+
 
 import jakarta.validation.Valid;
 
@@ -193,23 +195,26 @@ public class CourseController {
 		return "redirect:/";
 	}
 	
-	@PostMapping("/courses/addMessage")
+	@PostMapping("/courses/{courseId}/addMessage")
 	public String addMessage(
+			@PathVariable("courseId") Long courseId, 
 			@ModelAttribute("message") Message message, 
 			Model model,
+		
 			Principal principal
 			) {
 		if(principal==null) {
 			return "redirect:/login";
 		}
+		
 		String email = principal.getName();
 		User user = userService.findByEmail(email);
 		model.addAttribute("user", user);
 		System.out.println(message.getContent());
 		messageService.addMessage(message);
-		return "redirect:/";
+		return "redirect:/courses/{courseId}/lectures";
 		
 	}
 	
-
+	
 }

@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+
+.my-custom-scrollbar {
+position: relative;
+height: 200px;
+width:50%;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
+.message-container {
+	position: relative;
+	width: 50%;
+	height: 300px;
+	border: 2px solid white;
+	overflow: auto;
+}
+.sender-color{
+	color:blue;
+	font-size:medium;
+}
+.date-color{
+	color:grey;
+	font-size:small;
+}
