@@ -29,6 +29,7 @@
 					<li class="nav-item"><a class="nav-link" aria-current="page"
 						href="/lessons">Lessons</a></li>
 					<li class="nav-item"><a class="nav-link" href=#status>Status</a></li>
+					<li class="nav-item"><a class="nav-link" href="/chatgpt">ChatGPT</a></li>
 				</ul>
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" type="search" placeholder="Search"
@@ -66,7 +67,7 @@
 							<c:forEach var="eachCourse" items="${unassignedCourses}">
 								<tr>
 									<c:if test="${eachCourse.teacher.id!=currentUser.id}">
-										<td><a href="/courses/${eachCourse.id}" class="link">${eachCourse.title}</a></td>
+										<td>${eachCourse.title}</td>
 										<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
 										<td><a href="/dashboard/join/${eachCourse.id}" class="btn btn-success btn-sm">Enroll
