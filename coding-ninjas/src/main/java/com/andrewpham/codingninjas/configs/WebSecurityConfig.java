@@ -29,7 +29,7 @@ public class WebSecurityConfig {
 		http
 		    	.authorizeHttpRequests()
 		    		.requestMatchers("/admin/**").hasRole("ADMIN")
-	            	.requestMatchers("/", "/dashboard").authenticated()
+	            	.requestMatchers("/", "/dashboard", "/api/v1/searchChatGPT").authenticated()
 	                .anyRequest().permitAll()
 	                .and()
 	            .formLogin()

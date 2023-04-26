@@ -31,7 +31,7 @@
 					<li class="nav-item"><a class="nav-link" aria-current="page"
 						href="/lessons">Lessons</a></li>
 					<li class="nav-item"><a class="nav-link" href=#status>Status</a></li>
-					<li class="nav-item"><a class="nav-link" href="/chatgpt">ChatGPT</a></li>
+					<li class="nav-item"><a class="nav-link" href="/api/v1/searchChatGPT">ChatGPT</a></li>
 				</ul>
 				<form action="/lectures/search" method="POST" class="d-flex"
 					placeholder="Search">
