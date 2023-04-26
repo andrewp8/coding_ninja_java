@@ -11,4 +11,5 @@ import com.andrewpham.codingninjas.models.Lecture;
 public interface LectureRepository extends CrudRepository<Lecture, Long> {
 	List<Lecture> findAll();
 	List<Lecture> findByTitleContaining(String keyword);
+	List<Lecture> findByCourseId(Long courseId);
 }

@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -33,9 +34,17 @@ public class Image {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
 	
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="lecture_id")
     private Lecture lecture;
+    
+    @Transient
+    public String getPhotosImagePath() {
+    	if (imgName == null || id == null) return null;
+    	
+    	return "/user-photos/" + id + "/" + imgName;
+    }
     
     public Image() {}
     

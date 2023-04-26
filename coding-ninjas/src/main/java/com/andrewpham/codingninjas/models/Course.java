@@ -54,18 +54,12 @@ public class Course {
 	)
     private List<User> users;
     
-<<<<<<< HEAD
-    
-    @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
-    private List<Message> messages;
-    
-    
-=======
-    @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
-    private List<Message> messages;
-    
 
->>>>>>> 517a696afbcda465169289985429b20f5e3b6406
+    
+    @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
+    private List<Message> messages;
+    
+    
     @OneToMany(mappedBy="course", fetch=FetchType.LAZY)
     private List<Lecture> lectures;
     

@@ -9,15 +9,12 @@
 <head>
 <meta charset="UTF-8">
 <title>View One Course</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<script type="text/javascript" src="/js/app.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
-	<<<<<<< HEAD
 
-=======
-
-	
->>>>>>> 517a696afbcda465169289985429b20f5e3b6406
 	<a href="/"><button>Return to home</button></a>
 	<h1>course title: ${currentCourse.title }</h1>
 	<br>
@@ -46,37 +43,44 @@
 					</c:choose>
 				</tr>
 			</c:forEach>
-<<<<<<< HEAD
 		</tbody>
 	</table>
-	<h1>course title: ${oneCourse.title }</h1>
-=======
-			</tbody>
-		</table>
-	
-	<h1> course title: ${oneCourse.title }</h1>
->>>>>>> 517a696afbcda465169289985429b20f5e3b6406
+
 	<h2>teacher first name${oneCourse.teacher.firstName }</h2>
 	<h2>teacher id: ${oneCourse.teacher.id }</h2>
-	<a href="/courses/${oneCourse.id}/lectures/new">Add new lecture</a>
-	<table>
+	<c:if test="${ currentUser.roles.get(0).name.contains('ROLE_ADMIN')}">
+		<a href="/courses/${oneCourse.id}/lectures/new"
+			class="btn btn-primary">Add new lecture</a>
+	</c:if>
+	<table class="table" style="text-aligh: center;">
 		<thead>
 			<tr>
 				<th>Lecture's title</th>
 				<th>Difficulty</th>
 				<th>Finish reading by</th>
+				<c:if
+					test="${ currentUser.roles.get(0).name.contains('ROLE_ADMIN')}">
+					<th colspan=2>Action</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="eachLecture" items="${lectureList}">
 				<tr>
-					<td>${eachLecture.title }</td>
+					<td><a href="/courses/${oneCourse.id}/lectures/${eachLecture.id}" class="link">${eachLecture.title }</a></td>
 					<td>${eachLecture.difficulty }</td>
-					<td>${eachLecture.dueDate }</td>
-<<<<<<< HEAD
-=======
-
->>>>>>> 517a696afbcda465169289985429b20f5e3b6406
+					<td><fmt:formatDate pattern="MM/dd/YYYY"
+							value="${eachLecture.dueDate}" /></td>
+					<c:if
+						test="${ currentUser.roles.get(0).name.contains('ROLE_ADMIN')}">
+						<td class="d-flex gap-1"><a
+							href="/courses/${oneCourse.id}/lectures/${eachLecture.id}/edit"
+							class="btn btn-warning btn-sm">Edit</a> <form:form
+								action="/courses/${oneCourse.id}/lectures/${eachLecture.id}/delete"
+								method="delete">
+								<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+							</form:form></td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -87,7 +91,7 @@
 		<h2>Class Message Wall</h2>
 		<div id="commentbox">
 			<c:forEach var="oneMmsg" items="${theseMessages}">
-				<p>${oneMmsg.user.firstName}says: ${oneMmsg.content}</p>
+				<p>${oneMmsg.user.firstName}says:${oneMmsg.content}</p>
 				<p>--*--*--*--*--*--*--</p>
 			</c:forEach>
 		</div>

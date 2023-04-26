@@ -15,7 +15,9 @@
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato&family=Marvel&family=Roboto+Mono&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Lato&family=Marvel&family=Roboto+Mono&display=swap"
+	rel="stylesheet">
 
 </head>
 <body>
@@ -28,9 +30,11 @@
 					href="/lessons">Lessons</a></li>
 				<li class="nav-item"><a class="nav-link" href=#status>Status</a></li>
 			</ul>
-			<form class="d-flex" role="search">
-				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search">
+			<form action="/lectures/search" method="POST" class="d-flex"
+				placeholder="Search">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" /> <input name="keyword" type="text"
+					class="form-control me-2" />
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
@@ -112,7 +116,8 @@
 							<c:forEach var="eachCourse" items="${unassignedCourses}">
 								<tr>
 									<c:if test="${eachCourse.teacher.id!=currentUser.id}">
-										<td><a href="/courses/${eachCourse.id}/lecture" class="link">${eachCourse.title}</a></td>
+										<td><a href="/courses/${eachCourse.id}/lecture"
+											class="link">${eachCourse.title}</a></td>
 										<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
 										<td><c:out value="${eachCourse.description }"></c:out></td>
@@ -136,7 +141,8 @@
 						<tbody>
 							<c:forEach var="eachCourse" items="${assignedCourses}">
 								<tr>
-									<td><a href="/courses/${eachCourse.id}/lectures" class="link">${eachCourse.title}</a></td>
+									<td><a href="/courses/${eachCourse.id}/lectures"
+										class="link">${eachCourse.title}</a></td>
 									<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
 									<c:if test="${eachCourse.teacher.id==currentUser.id}">
@@ -160,7 +166,8 @@
 			</div>
 			<div>
 				<div>
-					<div class="card" style="	background-color: whitesmoke;	border: none;">
+					<div class="card"
+						style="background-color: whitesmoke; border: none;">
 						<div class="card-body">
 							<p style="text-transform: capitalize;">Username:
 								${currentUser.firstName} ${currentUser.lastName}</p>
@@ -178,7 +185,7 @@
 						</div>
 
 					</div>
-					<div class="card calendar" style="	border: none;">
+					<div class="card calendar" style="border: none;">
 						<%
 						Calendar cal = Calendar.getInstance();
 						int year = cal.get(Calendar.YEAR);

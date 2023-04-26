@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page isErrorPage="true"%>
+<%@ page isErrorPage="true" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,15 +12,15 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/style.css"/>
 <script type="text/javascript" src="/js/app.js"></script>
 
 </head>
 <body>
 	<div class="container mt-4">
-		<h1>New Lecture</h1>
-		<form:form action="/courses/${courseId}/lectures/new" method="post"
-			modelAttribute="newLecture">
+	<h1>Edit Lecture: ${oneLecture.title}</h1>
+		<form:form action="/courses/${courseId}/lectures/${oneLecture.id}/edit" method="post"
+			modelAttribute="oneLecture">
 			<form:input type="hidden" path="course" value="${courseId}"
 				class="form-control" />
 			<div>
@@ -59,18 +59,6 @@
 				<button type="submit" class="btn btn-success">Submit</button>
 			</div>
 		</form:form>
-
-		<form action="/lectures/photos/new" method="post"
-			enctype="multipart/form-data">
-			<div>
-
-				<label>Photos: </label> <input type="file" name="image"
-					accept="image/png, image/jpeg" /> <input type="hidden"
-					name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<button type="submit" class="btn btn-success">Submit</button>
-			</div>
-
-		</form>
 	</div>
 </body>
 </html>

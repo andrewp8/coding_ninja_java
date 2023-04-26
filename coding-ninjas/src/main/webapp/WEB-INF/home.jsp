@@ -66,7 +66,7 @@
 							<c:forEach var="eachCourse" items="${unassignedCourses}">
 								<tr>
 									<c:if test="${eachCourse.teacher.id!=currentUser.id}">
-										<td><a href="/courses/${eachCourse.id}" class="link">${eachCourse.title}</a></td>
+										<td><a href="/courses/${eachCourse.id}/lectures" class="link">${eachCourse.title}</a></td>
 										<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
 										<td><a href="/dashboard/join/${eachCourse.id}" class="btn btn-success btn-sm">Enroll
