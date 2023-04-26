@@ -23,6 +23,11 @@ public class LectureService {
 	public List<Lecture> findByCourseId(Long courseId){
 		return lectureRepo.findByCourseId(courseId);
 	}
+	
+// ---- FIND ALL ORDER BY DATE ASC ----
+	public List<Lecture> findAllOrderByDueDateDesc(){
+		return lectureRepo.findAllOrderByDueDateDesc();
+	}
 
 // ---- FIND ALL ----
 	public List<Lecture> allLectures() {

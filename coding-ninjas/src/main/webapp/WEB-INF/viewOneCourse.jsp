@@ -34,12 +34,12 @@
 					<li class="nav-item"><a class="nav-link" href=#status>Status</a></li>
 				</ul>
 				<form action="/lectures/search" method="POST" class="d-flex"
-				placeholder="Search">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /> <input name="keyword" type="text"
-					class="form-control me-2" />
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
+					placeholder="Search">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input name="keyword" type="text"
+						class="form-control me-2" />
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
 			</div>
 		</div>
 	</nav>
@@ -48,7 +48,8 @@
 	<div class="d-flex justify-content-between p-3">
 		<div class="p-3">
 			<h3>Class List</h3>
-			<div class="table-wrapper-scroll-y my-custom-scrollbar">
+			<div class="table-wrapper-scroll-y my-custom-scrollbar"
+				style="width: 80%;">
 				<table class="table table-bordered table-striped mb-0">
 					<thead>
 						<tr>
@@ -92,17 +93,35 @@
 					<input class="btn btn-primary" type="submit" value="Post Message">
 				</form:form>
 				<h3>Class Message Wall</h3>
-				<div class="message-container table-wrapper-scroll-y">
+				<div class="message-container table-wrapper-scroll-y"
+					style="width: 80%;">
 
 					<c:forEach var="oneMsg" items="${theseMessages}">
-						<p>
-							<span class="sender-color">${oneMsg.user.firstName}</span> <span
-								class="date-color"> <fmt:formatDate
-									value="${oneMsg.createdAt}" pattern="MM/dd/yyyy @ h:mm a" />
-							</span>
-						</p>
-						<p>${oneMsg.content}</p>
-						<p>--*--*--*--*--*--*--</p>
+						<c:choose>
+							<c:when
+								test="${oneMsg.user.roles.get(0).name.contains('ROLE_ADMIN')}">
+								<div class="float-right bg-info bg-opacity-10 rounded border border-primary">
+									<p>
+										<span class="sender-color">${oneMsg.user.firstName}</span> <span
+											class="date-color"> <fmt:formatDate
+												value="${oneMsg.createdAt}" pattern="MM/dd/yyyy @ h:mm a" />
+										</span>
+									</p>
+									<p>${oneMsg.content}</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="float-right bg-warning bg-opacity-10 rounded border border-warning">
+									<p>
+										<span class="sender-color">${oneMsg.user.firstName}</span> <span
+											class="date-color"> <fmt:formatDate
+												value="${oneMsg.createdAt}" pattern="MM/dd/yyyy @ h:mm a" />
+										</span>
+									</p>
+									<p>${oneMsg.content}</p>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</div>
 
@@ -120,7 +139,7 @@
 						<th>Difficulty</th>
 						<th>Finish reading by</th>
 						<c:if
-							test="${ currentUser.roles.get(0).name.contains('ROLE_ADMIN')}">
+							test="${currentUser.roles.get(0).name.contains('ROLE_ADMIN')}">
 							<th colspan=2>Action</th>
 						</c:if>
 					</tr>

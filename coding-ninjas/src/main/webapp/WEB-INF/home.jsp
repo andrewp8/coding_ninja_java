@@ -16,7 +16,9 @@
 <link rel="stylesheet" href="/css/home.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato&family=Marvel&family=Roboto+Mono&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Lato&family=Marvel&family=Roboto+Mono&display=swap"
+	rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -31,9 +33,11 @@
 					<li class="nav-item"><a class="nav-link" href=#status>Status</a></li>
 					<li class="nav-item"><a class="nav-link" href="/chatgpt">ChatGPT</a></li>
 				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
+				<form action="/lectures/search" method="POST" class="d-flex"
+					placeholder="Search">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input name="keyword" type="text"
+						class="form-control me-2" />
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form>
 			</div>
@@ -68,14 +72,15 @@
 								<tr>
 									<c:if test="${eachCourse.teacher.id!=currentUser.id}">
 
-										<td><a href="/courses/${eachCourse.id}/lectures" class="link">${eachCourse.title}</a></td>
+										<td><a href="/courses/${eachCourse.id}/lectures"
+											class="link">${eachCourse.title}</a></td>
 
 										<td>${eachCourse.title}</td>
 
 										<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
-										<td><a href="/dashboard/join/${eachCourse.id}" class="btn btn-success btn-sm">Enroll
-												in Class</a></td>
+										<td><a href="/dashboard/join/${eachCourse.id}"
+											class="btn btn-success btn-sm">Enroll in Class</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -96,16 +101,17 @@
 						<tbody>
 							<c:forEach var="eachCourse" items="${assignedCourses}">
 								<tr>
-									<td><a href="/courses/${eachCourse.id}/lectures" class="link">${eachCourse.title}</a></td>
+									<td><a href="/courses/${eachCourse.id}/lectures"
+										class="link">${eachCourse.title}</a></td>
 									<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
 									<c:if test="${eachCourse.teacher.id==currentUser.id}">
-										<td><a href="/projects/edit/${eachCourse.id}" class="link">Edit
-												Course</a></td>
+										<td><a href="/projects/edit/${eachCourse.id}"
+											class="link">Edit Course</a></td>
 									</c:if>
 									<c:if test="${eachCourse.teacher.id!=currentUser.id}">
-										<td><a href="/dashboard/leave/${eachCourse.id}" class="btn btn-danger btn-sm">Leave
-												Class</a></td>
+										<td><a href="/dashboard/leave/${eachCourse.id}"
+											class="btn btn-danger btn-sm">Leave Class</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -121,7 +127,7 @@
 			<div>
 				<div class="card">
 					<div class="card-body">
-						<p style="text-transform: capitalize;">Username: 
+						<p style="text-transform: capitalize;">Username:
 							${currentUser.firstName} ${currentUser.lastName}</p>
 						<p>Email: ${currentUser.email}</p>
 						<p>
@@ -203,6 +209,31 @@
 				<div class="card">
 					<div class="card-body">
 						<h5>Urgent Deadlines:</h5>
+						<table>
+							<thead>
+								<tr>
+									<th>Title</th>
+									<th>Course</th>
+									<th>Finished By</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="eachUrgenReading" items="${urgentReadings}"
+									end="2">
+									<c:if
+										test="${fn:contains(eachUrgenReading.getCourse().getUsers(),currentUser)}">
+										<tr class="border-bottom">
+											<td style="text-transform: capitalize;"><c:out
+													value="${eachUrgenReading.title}" /></td>
+											<td><c:out
+													value="${eachUrgenReading.getCourse().getTitle()}" /></td>
+											<td><fmt:formatDate value="${eachUrgenReading.dueDate}"
+													pattern="MM/dd/yyyy" /></td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

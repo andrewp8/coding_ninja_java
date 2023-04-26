@@ -36,10 +36,12 @@ public class ChatController {
 		try {
 			model.addAttribute("request", dto.prompt());
 			model.addAttribute("response", chatWithGpt3(dto.prompt()));
-			System.out.println(dto);
+			System.out.println("dto "+ dto);
+			System.out.println("response"+ chatWithGpt3(dto.prompt()));
 		} catch (Exception e) {
 			model.addAttribute("response", "Error in communication with OpenAI ChatGPT API.");
 		}
+	
 		return "redirect:/chatgpt";
 	}
 //	

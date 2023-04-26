@@ -115,7 +115,9 @@ public class LectureController {
 	        justCreatedLecture.setPhotos(fileName);
 	        lectureService.updateLecture(justCreatedLecture);
 	        
-	        String uploadDir = "lecture-photos/" + newLectureId;
+	        String folderName = "lecture-photos/" + newLectureId; // Name of the folder to create
+	        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/" + folderName;
+
 	 
 	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 	        Lecture thisLecture = lectureService.oneLecture(newLectureId);

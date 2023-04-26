@@ -2,6 +2,7 @@ package com.andrewpham.codingninjas.controllers;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.andrewpham.codingninjas.models.Lecture;
 import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.services.CourseService;
+import com.andrewpham.codingninjas.services.LectureService;
 import com.andrewpham.codingninjas.services.UserService;
 import com.andrewpham.codingninjas.validators.UserValidator;
 
@@ -34,6 +37,9 @@ public class UserController {
 	
 	@Autowired 
 	private CourseService courseService;
+	
+	@Autowired 
+	private LectureService lectureService;
 	
 	@RequestMapping("/register")
     public String registerForm(@Valid @ModelAttribute("user") User user) {
@@ -137,7 +143,9 @@ public class UserController {
 				}
 				// All other users are redirected to the home page
 			}
-			
+			List<Lecture> lectures = lectureService.findAllOrderByDueDateDesc();
+			List<Lecture> urgentReadings = lectures.subList(0, Math.min(lectures.size(), 3));
+			model.addAttribute("urgentReadings", lectures);
 			return "home.jsp";
 		}
 	 	

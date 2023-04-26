@@ -42,6 +42,8 @@
 			<c:out value="${oneLecture.content}" />
 		</p>
 		<img src="${oneLecture.getPhotosImagePath()}" />
+		<c:url value="${oneLecture.getPhotosImagePath()}"></c:url> 
+		<c:out value="${oneLecture.getPhotosImagePath()}"/>
 	</div>
 </body>
 </html>
