@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.andrewpham.codingninjas.models.ChatgptResponse;
 import com.andrewpham.codingninjas.services.ChatgptService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,10 +33,13 @@ public class ChatgptController {
 			@RequestParam("prompt") String query,
 			Model model
 			) {
+		String response = chatgptService.processSearch(query);
+		System.out.println("console.log:" + response +"?????");
 //		System.out.println(searchRequest);
 //		System.out.println("searchChatGPT starter query" + searchRequest.getQuery());
 		model.addAttribute("response", chatgptService.processSearch(query));
 		
-		return "redirect:/api/v1/searchChatGPT";
+		
+		return "chatGPTForm.jsp";
 	}
 }
