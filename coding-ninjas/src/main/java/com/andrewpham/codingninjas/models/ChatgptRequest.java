@@ -13,7 +13,7 @@ public class ChatgptRequest {
 	private int temperature = 1;
 	
 	@SerializedName(value="max_tokens")
-	private int maxTokens = 20;
+	private int maxTokens = 100;
 
 	public String getModel() {
 		return model;
