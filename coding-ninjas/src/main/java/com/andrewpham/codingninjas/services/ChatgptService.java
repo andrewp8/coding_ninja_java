@@ -33,11 +33,6 @@ public class ChatgptService {
 		HttpPost post = new HttpPost(url);
 		post.addHeader("Content-Type", "application/json");
 		post.addHeader("Authorization", "Bearer " +OPEN_AI_KEY);
-<<<<<<< HEAD
-		
-=======
-//		System.out.println(post);
->>>>>>> bf74021d84e984ff7442269672832bf449bf0418
 		Gson gson = new Gson();
 		String body = gson.toJson(chatgptRequest);
 		
@@ -45,16 +40,6 @@ public class ChatgptService {
 		try {
 			final StringEntity entity = new StringEntity(body);
 			post.setEntity(entity);
-<<<<<<< HEAD
-			System.out.println("entity>>>>>"+entity);
-			CloseableHttpClient httpClient1 = HttpClients.custom().build();
-			System.out.println("httpClient1>>>>" +httpClient1);
-			CloseableHttpResponse response1 = httpClient1.execute(post);
-			System.out.println("post>>>>>"+post);
-			System.out.println("!!!!!!!!!!!!!!!");
-			System.out.println("response1>>>>>"+response1);
-=======
->>>>>>> bf74021d84e984ff7442269672832bf449bf0418
 			
 			try(CloseableHttpClient httpClient = HttpClients.custom().build();
 					CloseableHttpResponse response = httpClient.execute(post)){
@@ -62,35 +47,17 @@ public class ChatgptService {
 				String responseBody = EntityUtils.toString(response.getEntity());
 				
 				ChatgptResponse chatgptResponse = gson.fromJson(responseBody, ChatgptResponse.class);
-<<<<<<< HEAD
-				System.out.println("chatgptResponse "+chatgptResponse);
-=======
-//				System.out.println("*********" +chatgptResponse.getChoices().get(0).getText());
->>>>>>> bf74021d84e984ff7442269672832bf449bf0418
-	//			return chatgptResponse.getChoices().get(0).getText();
 				
 				return chatgptResponse.getChoices().get(0).getText();
 				
 			} 
 			catch(Exception e) {
-<<<<<<< HEAD
-				System.out.println("inner exeption>>>>"+e);
-=======
-				
->>>>>>> bf74021d84e984ff7442269672832bf449bf0418
 				return "failed";
 			}
 		}
 			catch(Exception e) {
-<<<<<<< HEAD
-				System.out.println("outter exeption>>>>"+e);
-=======
-
->>>>>>> bf74021d84e984ff7442269672832bf449bf0418
 				return "failed";
 			}
 	}
-	
-
 
 }

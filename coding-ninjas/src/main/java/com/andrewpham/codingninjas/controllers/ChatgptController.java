@@ -37,7 +37,7 @@ public class ChatgptController {
 		System.out.println("console.log:" + response +"?????");
 //		System.out.println(searchRequest);
 //		System.out.println("searchChatGPT starter query" + searchRequest.getQuery());
-		model.addAttribute("response", chatgptService.processSearch(query));
+		model.addAttribute("response", response);
 		
 		
 		return "chatGPTForm.jsp";

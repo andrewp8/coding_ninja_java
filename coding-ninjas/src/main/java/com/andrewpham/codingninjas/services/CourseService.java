@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.andrewpham.codingninjas.models.Course;
+import com.andrewpham.codingninjas.models.Lecture;
+import com.andrewpham.codingninjas.models.Message;
 import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.repositories.CourseRepository;
 
@@ -39,6 +41,19 @@ public class CourseService {
 	}
 	
 	public void deleteCourse(Course course) {
+		course.setTeacher(null);
+		List<Lecture> lectureList = course.getLectures();
+		for(Lecture lecture:lectureList) {
+			lecture.setCourse(null);
+		}
+		course.setLectures(lectureList);
+		List<Message> messageList = course.getMessages();
+		for(Message message:messageList) {
+			message.setCourse(null);
+			message.setUser(null);
+		}
+		course.setMessages(messageList);
+		updateCourse(course);
 		courseRepo.delete(course);
 	}
 	

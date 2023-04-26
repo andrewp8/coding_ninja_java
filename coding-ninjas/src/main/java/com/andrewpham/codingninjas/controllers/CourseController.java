@@ -210,7 +210,6 @@ public class CourseController {
 		String email = principal.getName();
 		User user = userService.findByEmail(email);
 		model.addAttribute("user", user);
-		System.out.println(message.getContent());
 		messageService.addMessage(message);
 		return "redirect:/courses/{courseId}/lectures";
 		

@@ -150,7 +150,9 @@
 											class="btn btn-warning btn-sm">Edit Course</a></td>
 										<td><form action="/admin/courses/${eachCourse.id }"
 												method="post">
-												<input type="hidden" name="_method" value="delete">
+												<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" /> <input type="hidden"
+													name="_method" value="delete">
 												<button type="submit" class="btn btn-danger btn-sm">Delete</button>
 											</form></td>
 									</c:if>
