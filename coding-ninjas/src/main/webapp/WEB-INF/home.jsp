@@ -131,7 +131,7 @@
 				<div class="dropdown-hidden" id="myDIV">
 					<h2>ChatGPT responded with:</h2>
 					<p>${response}</p>
-					<a href="/home"><button>Clear Result</button></a>
+					<a href="/home"><button class="btn btn-warning">Clear Result</button></a>
 				</div>
 				
 			</div>
@@ -223,9 +223,9 @@
 					<div class="card">
 						<div class="card-body">
 							<h5>Urgent Deadlines:</h5>
-							<table>
+							<table class="text-center">
 								<thead>
-									<tr>
+									<tr >
 										<th>Title</th>
 										<th>Course</th>
 										<th>Finished By</th>
