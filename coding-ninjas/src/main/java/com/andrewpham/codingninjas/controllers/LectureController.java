@@ -20,17 +20,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.andrewpham.codingninjas.Utils.FileUploadUtil;
+import com.andrewpham.codingninjas.models.Course;
 import com.andrewpham.codingninjas.models.Image;
 import com.andrewpham.codingninjas.models.Lecture;
+import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.services.CourseService;
 import com.andrewpham.codingninjas.services.ImageService;
 import com.andrewpham.codingninjas.services.LectureService;
+import com.andrewpham.codingninjas.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 public class LectureController {
+	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private LectureService lectureService;
 	@Autowired
@@ -83,6 +89,16 @@ public class LectureController {
 			Model model) {
 		if (principal == null) {
 			return "redirect:/login";
+		}
+		String email = principal.getName();
+		User user = userService.findByEmail(email);
+		
+		
+		Course course = courseService.findById(courseId);
+		
+		//gets all the messages saves in this course
+		if(!course.getUsers().contains(user)) {
+			return "redirect:/";
 		}
 		model.addAttribute("oneLecture", lectureService.oneLecture(id));
 		return "lectureDetail.jsp";

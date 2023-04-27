@@ -155,11 +155,26 @@ public class CourseController {
 		if (principal == null) {
 			return "redirect:/login";
 		}
+<<<<<<< HEAD
 
+=======
+		
+		
+>>>>>>> 167304c3ba286991c7f61e30102bfbe0da735fa1
 		String email = principal.getName();
 		User user = userService.findByEmail(email);
+		
+		
 		Course course = courseService.findById(courseId);
+<<<<<<< HEAD
 		// gets all the messages saves in this course
+=======
+		//gets all the messages saves in this course
+		if(!course.getUsers().contains(user)) {
+			return "redirect:/";
+		}
+		
+>>>>>>> 167304c3ba286991c7f61e30102bfbe0da735fa1
 		List<Message> messages = course.getMessages();
 		Collections.reverse(messages);
 		List<Lecture> courseLectures = lectureService.findByCourseId(courseId);

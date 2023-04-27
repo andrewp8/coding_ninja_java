@@ -48,6 +48,7 @@ public class CourseService {
 	}
 	
 	public void deleteCourse(Course course) {
+
 //		course.setTeacher(null);
 //		List<Lecture> lectureList = course.getLectures();
 //		for(Lecture lecture:lectureList) {
@@ -62,7 +63,7 @@ public class CourseService {
 //			messageService.removeMessage(message);
 //		}
 //		updateCourse(course);
-		courseRepo.delete(course);
+
 	}
 	
 	public Course findById(Long id) {

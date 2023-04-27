@@ -13,10 +13,35 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/home.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script type="text/javascript" src="/js/app.js"></script>
 
 </head>
 <body>
+
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Coding Ninjas</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" aria-current="page"
+						href="/lessons">Lessons</a></li>
+					<li class="nav-item"><a class="nav-link" href=#status>Status</a></li>
+					<li class="nav-item"><a class="nav-link" href="/api/v1/searchChatGPT">ChatGPT</a></li>
+				</ul>
+				<form action="/lectures/search" method="POST" class="d-flex"
+					placeholder="Search">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input name="keyword" type="text"
+						class="form-control me-2" />
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
 	<div class="container mt-4">
 		<h1>New Lecture</h1>
 		<form:form action="/courses/${courseId}/lectures/new" method="post"

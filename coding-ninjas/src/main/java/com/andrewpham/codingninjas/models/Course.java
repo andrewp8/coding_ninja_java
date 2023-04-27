@@ -53,15 +53,19 @@ public class Course {
 			joinColumns = @JoinColumn(name = "course_id"),
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
+    //attendees of each course
     private List<User> users;
     
 
     
-    @OneToMany(mappedBy="course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy="course", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Message> messages;
     
     
+    
     @OneToMany(mappedBy="course", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
     private List<Lecture> lectures;
     
     public List<Lecture> getLectures() {

@@ -36,6 +36,38 @@ public class ChatgptController {
 	public String renderChatGPTForm() {
 		return "chatGPTForm.jsp";
 	}
+<<<<<<< HEAD
+=======
+	
+	@PostMapping("/searchChatGPT")
+	public String searchChatGPT(
+			@RequestParam("prompt") String query,
+			Model model
+			) {
+		String response = chatgptService.processSearch(query);
+		System.out.println("console.log:" + response +"?????");
+//		System.out.println(searchRequest);
+//		System.out.println("searchChatGPT starter query" + searchRequest.getQuery());
+		model.addAttribute("response", response);
+		
+		
+		return "chatGPTForm.jsp";
+	}
+	@PostMapping("/home/searchChatGPT")
+	public String searchHomeChatGPT(
+			@RequestParam("prompt") String query,
+			Model model
+			) {
+		String response = chatgptService.processSearch(query);
+		System.out.println("console.log:" + response +"?????");
+//		System.out.println(searchRequest);
+//		System.out.println("searchChatGPT starter query" + searchRequest.getQuery());
+		model.addAttribute("response", response);
+		
+		
+		return "home.jsp";
+	}
+>>>>>>> 167304c3ba286991c7f61e30102bfbe0da735fa1
 }
 
 //	@PostMapping("/searchChatGPT")
