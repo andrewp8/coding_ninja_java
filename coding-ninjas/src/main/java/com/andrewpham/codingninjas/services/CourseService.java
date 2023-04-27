@@ -3,6 +3,7 @@ package com.andrewpham.codingninjas.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andrewpham.codingninjas.models.Course;
@@ -13,8 +14,14 @@ import com.andrewpham.codingninjas.repositories.CourseRepository;
 
 @Service
 public class CourseService {
-	
+	@Autowired
 	private final CourseRepository courseRepo;
+	@Autowired
+	private MessageService messageService;
+	@Autowired
+	private LectureService lectureService;
+	@Autowired
+	private UserService userService;
 	
 	public CourseService(CourseRepository courseRepo) {
 		this.courseRepo = courseRepo;
@@ -41,19 +48,20 @@ public class CourseService {
 	}
 	
 	public void deleteCourse(Course course) {
-		course.setTeacher(null);
-		List<Lecture> lectureList = course.getLectures();
-		for(Lecture lecture:lectureList) {
-			lecture.setCourse(null);
-		}
-		course.setLectures(lectureList);
-		List<Message> messageList = course.getMessages();
-		for(Message message:messageList) {
-			message.setCourse(null);
-			message.setUser(null);
-		}
-		course.setMessages(messageList);
-		updateCourse(course);
+//		course.setTeacher(null);
+//		List<Lecture> lectureList = course.getLectures();
+//		for(Lecture lecture:lectureList) {
+//			lecture.setCourse(null);
+//			lectureService.removeLecture(lecture.getId());
+//		}
+//		
+//		List<Message> messageList = course.getMessages();
+//		for(Message message:messageList) {
+//			message.setCourse(null);
+//			message.setUser(null);
+//			messageService.removeMessage(message);
+//		}
+//		updateCourse(course);
 		courseRepo.delete(course);
 	}
 	

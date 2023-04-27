@@ -152,7 +152,7 @@ public class UserController {
 	 	@RequestMapping("/delete/{id}")
 		public String deleteUser(@PathVariable("id") Long id, HttpSession session, Model model) {	
 			User user = userService.findById(id);
-			userService.deleteUser(user);
+			userService.removeUser(user);
 			
 			model.addAttribute("users", userService.allUsers());
 			 

@@ -16,5 +16,8 @@ public class MessageService {
 	public Message addMessage(Message message) {
 		return messageRepository.save(message);
 	}
-
+	
+	public void removeMessage(Message message) {
+		messageRepository.delete(message);
+	}
 }

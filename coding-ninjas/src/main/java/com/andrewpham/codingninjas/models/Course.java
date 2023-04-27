@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -56,11 +57,11 @@ public class Course {
     
 
     
-    @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Message> messages;
     
     
-    @OneToMany(mappedBy="course", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="course", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Lecture> lectures;
     
     public List<Lecture> getLectures() {
