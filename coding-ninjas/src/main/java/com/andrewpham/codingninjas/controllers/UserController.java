@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.andrewpham.codingninjas.models.Course;
 import com.andrewpham.codingninjas.models.Lecture;
 import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.services.CourseService;
@@ -117,7 +118,7 @@ public class UserController {
 		}
 	 	
 	 	@RequestMapping(value={"/", "/home"})
-		public String home(Principal principal, Model model) {
+		public String home(@ModelAttribute("newCourse") Course newCourse,Principal principal, Model model, HttpSession session) {
 			if(principal==null) {
 				return "redirect:/login";
 			}
@@ -138,7 +139,6 @@ public class UserController {
 					model.addAttribute("allCourses", courseService.allCourses());
 					model.addAttribute("unassignedCourses", courseService.getUnassignedCourses(user));
 					model.addAttribute("assignedCourses", courseService.getAssignedCourses(user));
-
 					return "adminPage.jsp";
 				}
 				// All other users are redirected to the home page
