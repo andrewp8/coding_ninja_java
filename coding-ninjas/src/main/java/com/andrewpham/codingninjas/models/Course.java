@@ -58,11 +58,19 @@ public class Course {
     
 
     
+<<<<<<< HEAD
     @OneToMany(mappedBy="course", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Message> messages;
     
     
     @OneToMany(mappedBy="course", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+=======
+    @OneToMany(mappedBy="course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Message> messages;
+    
+    
+    @OneToMany(mappedBy="course", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+>>>>>>> 2b234a854be772756a7b1ad494b3a46956709e52
     private List<Lecture> lectures;
     
     public List<Lecture> getLectures() {

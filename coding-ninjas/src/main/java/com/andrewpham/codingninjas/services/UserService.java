@@ -62,7 +62,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
-	public void deleteUser(User user) {
+	public void removeUser(User user) {
 		userRepository.delete(user);
 	}
     
