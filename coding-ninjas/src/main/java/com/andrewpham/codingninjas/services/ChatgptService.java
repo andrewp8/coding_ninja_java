@@ -33,7 +33,6 @@ public class ChatgptService {
 		HttpPost post = new HttpPost(url);
 		post.addHeader("Content-Type", "application/json");
 		post.addHeader("Authorization", "Bearer " +OPEN_AI_KEY);
-//		System.out.println(post);
 		Gson gson = new Gson();
 		String body = gson.toJson(chatgptRequest);
 		
@@ -48,23 +47,17 @@ public class ChatgptService {
 				String responseBody = EntityUtils.toString(response.getEntity());
 				
 				ChatgptResponse chatgptResponse = gson.fromJson(responseBody, ChatgptResponse.class);
-//				System.out.println("*********" +chatgptResponse.getChoices().get(0).getText());
-	//			return chatgptResponse.getChoices().get(0).getText();
 				
 				return chatgptResponse.getChoices().get(0).getText();
 				
 			} 
 			catch(Exception e) {
-				
 				return "failed";
 			}
 		}
 			catch(Exception e) {
-
 				return "failed";
 			}
 	}
-	
-
 
 }

@@ -124,10 +124,17 @@ public class CourseController {
 			return "redirect:/login";
 		}
 		
+		
 		String email = principal.getName();
 		User user = userService.findByEmail(email);
+		
+		
 		Course course = courseService.findById(courseId);
 		//gets all the messages saves in this course
+		if(!course.getUsers().contains(user)) {
+			return "redirect:/";
+		}
+		
 		List<Message> messages = course.getMessages();
 		Collections.reverse(messages);
 		List<Lecture> courseLectures = lectureService.findByCourseId(courseId);
@@ -210,7 +217,6 @@ public class CourseController {
 		String email = principal.getName();
 		User user = userService.findByEmail(email);
 		model.addAttribute("user", user);
-		System.out.println(message.getContent());
 		messageService.addMessage(message);
 		return "redirect:/courses/{courseId}/lectures";
 		

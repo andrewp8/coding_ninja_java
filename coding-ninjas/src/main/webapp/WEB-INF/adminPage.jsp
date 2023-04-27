@@ -22,23 +22,26 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="/">Coding Ninjas</a>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item"><a class="nav-link" aria-current="page"
-					href="/lessons">Lessons</a></li>
-				<li class="nav-item"><a class="nav-link" href=#status>Status</a></li>
-			</ul>
-			<form action="/lectures/search" method="POST" class="d-flex"
-				placeholder="Search">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /> <input name="keyword" type="text"
-					class="form-control me-2" />
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Coding Ninjas</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="/api/v1/searchChatGPT">MChatGPT</a></li>
+				</ul>
+
+				<form id="logoutForm" method="POST" action="/logout">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input type="submit" value="Logout!" class="btn btn-danger btn-sm"/>
+				</form>
+				<form action="/lectures/search" method="POST" class="d-flex"
+					placeholder="Search">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <input name="keyword" type="text"
+						class="form-control me-2" />
+					<button class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" type="submit">Search</button>
+				</form>
+			</div>
 		</div>
-	</div>
 	</nav>
 
 	<div class="container mx-auto" style="width: 90%;">
@@ -47,11 +50,6 @@
 			<h1>
 				Welcome Back, <span style="text-transform: capitalize;">${currentUser.firstName}</span>
 			</h1>
-			<form id="logoutForm" method="POST" action="/logout">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /> <input type="submit" value="Logout!"
-					class="btn btn-danger" />
-			</form>
 		</div>
 
 		<div class="d-flex justify-content-between">
@@ -150,7 +148,9 @@
 											class="btn btn-warning btn-sm">Edit Course</a></td>
 										<td><form action="/admin/courses/${eachCourse.id }"
 												method="post">
-												<input type="hidden" name="_method" value="delete">
+												<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" /> <input type="hidden"
+													name="_method" value="delete">
 												<button type="submit" class="btn btn-danger btn-sm">Delete</button>
 											</form></td>
 									</c:if>

@@ -14,6 +14,14 @@ font-family: 'Roboto Mono', monospace;
 	box-shadow: 3px 3px 10px lightgrey;
 	transition: 200ms;
 }
+.dropdown-hidden {
+	background-color: whitesmoke;
+	display: inline-block none;
+	width: 700px;
+	padding: 2rem;
+	box-shadow: 3px 3px 10px lightgrey;
+	transition: 200ms;
+}
 
 .dropdown-content {
 	display: none;
@@ -65,4 +73,21 @@ font-family: 'Roboto Mono', monospace;
 
 .link:hover {
 	font-weight: bold;
+}
+
+#myDIV{
+	display: "none";
+}
+
+.centered-header{
+	text-align: center;
+}
+#chatgpt-padding{
+	margin-right:50px;
+	margin-left:50px
+}
+
+#chatgpt-main-container{
+	width:70%;
+	margin: 0px auto;
 }

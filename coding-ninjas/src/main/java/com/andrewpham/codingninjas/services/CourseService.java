@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.andrewpham.codingninjas.models.Course;
+import com.andrewpham.codingninjas.models.Lecture;
+import com.andrewpham.codingninjas.models.Message;
 import com.andrewpham.codingninjas.models.User;
 import com.andrewpham.codingninjas.repositories.CourseRepository;
 
