@@ -162,7 +162,7 @@
 				<a href="/courses/${oneCourse.id}/lectures/new"
 					class="btn btn-primary">Add new lecture</a>
 			</c:if>
-			<table class="table" style="text-aligh: center">
+			<table class="table table-hover" style="text-aligh: center">
 				<thead>
 					<tr>
 						<th>Lecture title</th>
