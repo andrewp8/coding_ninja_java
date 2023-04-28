@@ -100,7 +100,10 @@ public class LectureController {
 		if(!course.getUsers().contains(user)) {
 			return "redirect:/";
 		}
+		List<Lecture> lectureList = course.getLectures();
+		model.addAttribute("oneCourse", course);
 		model.addAttribute("oneLecture", lectureService.oneLecture(id));
+		model.addAttribute("lecturesList", lectureList );
 		return "lectureDetail.jsp";
 	}
 	

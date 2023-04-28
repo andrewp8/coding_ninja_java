@@ -36,8 +36,6 @@ public class ChatgptController {
 	public String renderChatGPTForm() {
 		return "chatGPTForm.jsp";
 	}
-<<<<<<< HEAD
-=======
 	
 	@PostMapping("/searchChatGPT")
 	public String searchChatGPT(
@@ -67,7 +65,6 @@ public class ChatgptController {
 		
 		return "home.jsp";
 	}
->>>>>>> 167304c3ba286991c7f61e30102bfbe0da735fa1
 }
 
 //	@PostMapping("/searchChatGPT")

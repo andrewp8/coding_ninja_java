@@ -21,7 +21,7 @@
 <meta charset="UTF-8">
 <title>View One Course</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/viewOneCourse.css" />
 <script type="text/javascript" src="/js/app.js"></script>
 </head>
 <body>
@@ -157,7 +157,8 @@
 				</div>
 		</div>
 		
-		<div class="p-3">
+		<div class="p-3" style="background-color: whitesmoke; box-shadow: 3px 3px 10px lightgrey;   height: 50%;
+  overflow: auto;">
 			<c:if test="${ currentUser.roles.get(0).name.contains('ROLE_ADMIN')}">
 				<a href="/courses/${oneCourse.id}/lectures/new"
 					class="btn btn-primary">Add new lecture</a>
