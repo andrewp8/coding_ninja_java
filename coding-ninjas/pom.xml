@@ -18,6 +18,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
 		<!-- spring-boot-starter-security, the Spring Security framework-->
 	<dependency>
         	<groupId>org.springframework.boot</groupId>
