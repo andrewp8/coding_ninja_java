@@ -30,3 +30,19 @@
 ![Screenshot 2023-04-27 at 7 20 39 PM](https://user-images.githubusercontent.com/112600528/235038883-e05f1906-c503-4d69-a12b-6c6ff9ebc42c.png)
 
 ## Usage
+
+1.) Register an account securely
+
+<img width="973" alt="Screenshot 2023-04-27 at 8 53 03 PM" src="https://user-images.githubusercontent.com/112600528/235050504-ef1e6c8a-e4a3-4937-87a2-366d4a180b00.png">
+
+2.) Utilize our Mock ChatGPT API
+
+<img width="1054" alt="Screenshot 2023-04-27 at 8 56 49 PM" src="https://user-images.githubusercontent.com/112600528/235050730-2302113f-831d-4202-96d8-f54659a365b0.png">
+
+3.) As an admin, grant authorization to other users in the database, create a course, and add lectures. 
+
+<img width="727" alt="Screenshot 2023-04-27 at 9 02 31 PM" src="https://user-images.githubusercontent.com/112600528/235051309-6275ab4e-95e1-40b8-bf84-f0bfe45e9080.png">
+
+<img width="493" alt="Screenshot 2023-04-27 at 9 02 52 PM" src="https://user-images.githubusercontent.com/112600528/235051354-8b2636cb-bc3e-4cdd-bf47-3c8bd59186e4.png">
+
+
