@@ -27,7 +27,7 @@
 						href="/api/v1/searchChatGPT">MChatGPT</a></li>
 				</ul>
 
-				<form id="logoutForm" method="POST" action="/logout">
+				<form id="logoutForm" method="POST" action="/logout" class="mx-2">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="submit" value="Logout!"
 						class="btn btn-danger btn-sm" />
@@ -49,29 +49,36 @@
 			<c:out value="${keyword}" />
 			"
 		</h1>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Lecture Title</th>
-					<th>Course</th>
-					<th>Teacher</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="eachResult" items="${resultList}">
-					<tr>
-						<td><a
-							href="/courses/${eachResult.getCourse().getId()}/lectures/${eachResult.id}"
-							class="link"><c:out value="${eachResult.getTitle()}" /></a></td>
-						<td><c:out value="${eachResult.getCourse().getTitle()}" /></td>
-						<td><c:out
-								value="${eachResult.getCourse().getTeacher().getFirstName()}" />
-							<c:out
-								value="${eachResult.getCourse().getTeacher().getLastName()}" /></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+			<c:choose>
+				<c:when test="${resultList.size() gt 0}">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Lecture Title</th>
+							<th>Course</th>
+							<th>Teacher</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="eachResult" items="${resultList}">
+							<tr>
+								<td><a
+									href="/courses/${eachResult.getCourse().getId()}/lectures/${eachResult.id}"
+									class="link"><c:out value="${eachResult.getTitle()}" /></a></td>
+								<td><c:out value="${eachResult.getCourse().getTitle()}" /></td>
+								<td><c:out
+										value="${eachResult.getCourse().getTeacher().getFirstName()}" />
+									<c:out
+										value="${eachResult.getCourse().getTeacher().getLastName()}" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:when>
+				<c:otherwise>
+						<h5>Sorry, there are no relevant matches with your search.</h5>
+					</c:otherwise>
+			</c:choose>
 	</div>
 </body>
 </html>

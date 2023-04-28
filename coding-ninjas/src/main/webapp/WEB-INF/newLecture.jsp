@@ -22,7 +22,7 @@
 	<div class="container mx-auto">
 		<form:form action="/courses/${courseId}/lectures/new" method="post"
 			modelAttribute="newLecture">
-		<h1>New Lecture</h1>
+		<h2>New Lecture</h2>
 			<form:input type="hidden" path="course" value="${courseId}"
 				class="form-control" />
 			<div>
@@ -65,7 +65,7 @@
 		<form action="/lectures/photos/new" method="post"
 			enctype="multipart/form-data" class="form">
 			<div class="row">
-				<label class="form-label">Photos: </label> <input type="file" name="image"
+				<label class="form-label">Photo: </label> <input type="file" name="image"
 					accept="image/png, image/jpeg" class="form-control" /> <input type="hidden"
 					name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<button type="submit" class="btn btn-success">Submit</button>

@@ -27,10 +27,10 @@
 						href="/api/v1/searchChatGPT">MChatGPT</a></li>
 				</ul>
 
-				<form id="logoutForm" method="POST" action="/logout">
+				<form id="logoutForm" method="POST" action="/logout"  class="mx-2">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="submit" value="Logout!"
-						class="btn btn-danger btn-sm" />
+						class="btn btn-danger btn-sm mr-2" />
 				</form>
 				<form action="/lectures/search" method="POST" class="d-flex"
 					placeholder="Search">
@@ -79,6 +79,7 @@
 				<p>
 					<c:out value="${oneLecture.content}" />
 				</p>
+								<img src="https://image.spreadshirtmedia.com/image-server/v1/products/T1459A839PA3861PT28D1025112854W10000H10000/views/1,width=550,height=550,appearanceId=839,backgroundColor=F2F2F2/i-love-coding-sticker.jpg" style="width:50%"/>
 			</div>
 		</div>
 

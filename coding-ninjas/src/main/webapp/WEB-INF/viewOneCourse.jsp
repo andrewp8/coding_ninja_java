@@ -32,7 +32,7 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="/api/v1/searchChatGPT">MChatGPT</a></li>
 				</ul>
-				<form id="logoutForm" method="POST" action="/logout">
+				<form id="logoutForm" method="POST" action="/logout" class="mx-2">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="submit" value="Logout!" class="btn btn-danger btn-sm"/>
 				</form>
