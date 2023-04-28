@@ -21,7 +21,7 @@
 <meta charset="UTF-8">
 <title>View One Course</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/viewOneCourse.css" />
 <script type="text/javascript" src="/js/app.js"></script>
 </head>
 <body>
@@ -32,7 +32,7 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="/api/v1/searchChatGPT">MChatGPT</a></li>
 				</ul>
-				<form id="logoutForm" method="POST" action="/logout">
+				<form id="logoutForm" method="POST" action="/logout" class="mx-2">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <input type="submit" value="Logout!" class="btn btn-danger btn-sm"/>
 				</form>
@@ -157,7 +157,8 @@
 				</div>
 		</div>
 		
-		<div class="p-3">
+		<div class="p-3" style="background-color: whitesmoke; box-shadow: 3px 3px 10px lightgrey;   height: 50%;
+  overflow: auto;">
 			<c:if test="${ currentUser.roles.get(0).name.contains('ROLE_ADMIN')}">
 				<a href="/courses/${oneCourse.id}/lectures/new"
 					class="btn btn-primary">Add new lecture</a>

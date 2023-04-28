@@ -155,13 +155,20 @@ public class CourseController {
 		if (principal == null) {
 			return "redirect:/login";
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b7b1ebe208f0d0ef760b409fdd896a3d8257aa5
 		String email = principal.getName();
 		User user = userService.findByEmail(email);
 		
 		
 		Course course = courseService.findById(courseId);
+<<<<<<< HEAD
 
+=======
+		// gets all the messages saves in this course
+>>>>>>> 6b7b1ebe208f0d0ef760b409fdd896a3d8257aa5
 		//gets all the messages saves in this course
 		if(!course.getUsers().contains(user)) {
 			return "redirect:/";

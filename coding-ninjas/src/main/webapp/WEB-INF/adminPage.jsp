@@ -25,26 +25,29 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="/">Coding Ninjas</a>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="/api/v1/searchChatGPT">MChatGPT</a></li>
-				</ul>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">Coding Ninjas</a>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item"><a class="nav-link"
+					href="/api/v1/searchChatGPT">MChatGPT</a></li>
+			</ul>
 
-				<form id="logoutForm" method="POST" action="/logout">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" /> <input type="submit" value="Logout!" class="btn btn-danger btn-sm"/>
-				</form>
-				<form action="/lectures/search" method="POST" class="d-flex"
-					placeholder="Search">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" /> <input name="keyword" type="text"
-						class="form-control me-2" />
-					<button class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" type="submit">Search</button>
-				</form>
-			</div>
+			<form id="logoutForm" method="POST" action="/logout" class="mx-2">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" /> <input type="submit" value="Logout!"
+					class="btn btn-danger btn-sm" />
+			</form>
+			<form action="/lectures/search" method="POST" class="d-flex"
+				placeholder="Search">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" /> <input name="keyword" type="text"
+					class="form-control me-2" />
+				<button class="btn btn-primary" data-toggle="button"
+					aria-pressed="false" autocomplete="off" type="submit">Search</button>
+			</form>
 		</div>
+	</div>
 	</nav>
 
 	<div class="container mx-auto" style="width: 90%;">
@@ -98,83 +101,73 @@
 					</table>
 				</div>
 
-				<div class="allCourse">
-					<div class="dropdown-toggle" data-bs-toggle="dropdown"
-						aria-expanded="false">
-						<div class="d-flex justify-content-between">
-							<h4>All Courses</h4>
-							<button class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#newCourseForm">+Add a course</button>
-						</div>
-						<div class="dropdown-menu">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Course</th>
-										<th>Teacher</th>
-										<th>Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="eachCourse" items="${unassignedCourses}">
-										<tr>
-											<c:if test="${eachCourse.teacher.id!=currentUser.id}">
-												<td><a href="/courses/${eachCourse.id}/lecture"
-													class="link">${eachCourse.title}</a></td>
-												<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
-
-												<td><c:out value="${eachCourse.description }"></c:out></td>
-											</c:if>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+				<div class="dropdown mt-4">
+					<div class="d-flex justify-content-between">
+						<h4>All Courses</h4>
+						<button class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#newCourseForm">+Add a course</button>
 					</div>
+					<table class="table dropdown-content">
+						<thead>
+							<tr>
+								<th>Course</th>
+								<th>Teacher</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="eachCourse" items="${unassignedCourses}">
+								<tr>
+									<c:if test="${eachCourse.teacher.id!=currentUser.id}">
+										<td><a href="/courses/${eachCourse.id}/lectures"
+											class="link">${eachCourse.title}</a></td>
+										<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
+
+										<td><c:out value="${eachCourse.description }"></c:out></td>
+									</c:if>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
-				<div class="yourCourse">
-					<div class="dropdown-toggle" data-bs-toggle="dropdown"
-						aria-expanded="false">
-						<h4>Your Courses</h4>
-						<div class="dropdown-menu">
-							<table class="table tb p-2">
-								<thead>
-									<tr>
-										<th>Course</th>
-										<th>Teacher</th>
-										<th>Due Date</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="eachCourse" items="${assignedCourses}">
-										<tr>
-											<td><a href="/courses/${eachCourse.id}/lectures"
-												class="link">${eachCourse.title}</a></td>
-											<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
+				<div class="dropdown">
+					<h4>Your Courses</h4>
+					<table class="table dropdown-content">
+						<thead>
+							<tr>
+								<th>Course</th>
+								<th>Teacher</th>
+								<th>Due Date</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="eachCourse" items="${assignedCourses}">
+								<tr>
+									<td><a href="/courses/${eachCourse.id}/lectures"
+										class="link">${eachCourse.title}</a></td>
+									<td><c:out value="${eachCourse.teacher.firstName}"></c:out></td>
 
-											<c:if test="${eachCourse.teacher.id==currentUser.id}">
-												<td><a href="/courses/edit/${eachCourse.id}"
-													class="btn btn-warning btn-sm">Edit Course</a></td>
-												<td><form action="/admin/courses/${eachCourse.id }"
-														method="post">
-														<input type="hidden" name="${_csrf.parameterName}"
-															value="${_csrf.token}" /> <input type="hidden"
-															name="_method" value="delete">
-														<button type="submit" class="btn btn-danger btn-sm">Delete</button>
-													</form></td>
-											</c:if>
-											<c:if test="${eachCourse.teacher.id!=currentUser.id}">
-												<td><a href="/dashboard/leave/${eachCourse.id}">Leave
-														Course</a></td>
-											</c:if>
-										</tr>
+									<c:if test="${eachCourse.teacher.id==currentUser.id}">
+										<td><a href="/courses/edit/${eachCourse.id}"
+											class="btn btn-warning btn-sm">Edit Course</a></td>
+										<td><form action="/admin/courses/${eachCourse.id }"
+												method="post">
+												<input type="hidden" name="${_csrf.parameterName}"
+													value="${_csrf.token}" /> <input type="hidden"
+													name="_method" value="delete">
+												<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+											</form></td>
+									</c:if>
+									<c:if test="${eachCourse.teacher.id!=currentUser.id}">
+										<td><a href="/dashboard/leave/${eachCourse.id}">Leave
+												Course</a></td>
+									</c:if>
+								</tr>
 
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
 
 				</div>
 				<div class="chatGPT">
@@ -182,17 +175,16 @@
 						aria-expanded="false">ChatGPT</h4>
 					<div class="dropdown-menu">
 						<div>
-							<h2>ChatGPT responded with:</h2>
+							<h2>Learn more with our Mock ChatGPT API</h2>
 							<p class="gptResponse">${response}</p>
 						</div>
 						<form action="/api/v1/searchChatGPT" method="post" class="form">
-							<div class="form-group">
-								<label class="form-label">Enter your message:</label> <input
-									type="text" name="prompt" required autofocus
+							<div class="row">
+								<input type="text" name="prompt" required autofocus
 									class="form-control" />
-							</div>
-							<button type="submit" class="btn btn-primary btn-sm mt-2">Send</button>
+								<button type="submit" class="btn btn-primary btn-sm mt-2">Send</button>
 
+							</div>
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
 						</form>

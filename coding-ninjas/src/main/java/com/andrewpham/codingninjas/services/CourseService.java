@@ -48,22 +48,7 @@ public class CourseService {
 	}
 	
 	public void deleteCourse(Course course) {
-
-//		course.setTeacher(null);
-//		List<Lecture> lectureList = course.getLectures();
-//		for(Lecture lecture:lectureList) {
-//			lecture.setCourse(null);
-//			lectureService.removeLecture(lecture.getId());
-//		}
-//		
-//		List<Message> messageList = course.getMessages();
-//		for(Message message:messageList) {
-//			message.setCourse(null);
-//			message.setUser(null);
-//			messageService.removeMessage(message);
-//		}
-//		updateCourse(course);
-
+		courseRepo.delete(course);
 	}
 	
 	public Course findById(Long id) {
