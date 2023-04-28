@@ -45,4 +45,9 @@
 
 <img width="493" alt="Screenshot 2023-04-27 at 9 02 52 PM" src="https://user-images.githubusercontent.com/112600528/235051354-8b2636cb-bc3e-4cdd-bf47-3c8bd59186e4.png">
 
+## Features
+-Spring Security
+-Spring Data JPA Queries
+-API-based Microservice
+-One-to-many, and many-to-many models
 
